@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    System.out.println(getDefinition(args[1]));
+    System.out.println(getDefinition(args[0]));
   }
 
   public static String getDefinition(String word) throws IOException {
@@ -18,5 +18,6 @@ public class Scraper {
     String output = data.toString();
     output = output.substring(34, output.length() - 11);
     return output;
+      
   }
 }
