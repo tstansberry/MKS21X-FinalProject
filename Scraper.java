@@ -18,6 +18,5 @@ public class Scraper {
     String output = data.toString();
     output = output.substring(34, output.length() - 11);
     return output;
-      
   }
 }
