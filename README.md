@@ -9,5 +9,5 @@ Vishwaa- Spent time studying Oxford API and its functionality, tested out sample
 Timothy- Switched routes to web-scraping instead of API. Got Jsoup (jar library) working. Connected scraper to dictionary.com, was able to pull all of its html.<br />
 Vishwaa- Made some progress with JSON integration. Found an alternative to using API from the documentation. Used swagger-codegen.jar to create JAVA files to access and use the API.
 # January 7th
-Timothy- Finally able to isolate the specific definition element that we needed... converting it into a string (after much trial and error). 
+Timothy- Finally able to isolate the specific definition element that we needed... converting it into a string (after much trial and error). <br />
 Vishwaa- 
