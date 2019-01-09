@@ -14,3 +14,5 @@ Vishwaa-
 # January 8th
 Timothy- Switched up the functionality of the parser. Instead of taking the easy route (definition provided at the top), it now goes down deep into the code and finds the location with all possible definitions. Currently having an error with the Element method "getAttribute()". <br />
 Vishwaa-
+# January 9th
+Timothy- Played around with various ways to access the specific definitions we needed... finally settled on the hard-coded way since the functions from the Elements interface weren't working. Made it possible to input the specific definition you want (0, 1, 2, etc.).
