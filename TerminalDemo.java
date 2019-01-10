@@ -21,7 +21,8 @@ public class TerminalDemo {
 	public static void putString(int r, int c,Terminal t, String s){
 		t.moveCursor(r,c);
 		for(int i = 0; i < s.length();i++){
-			t.putCharacter(s.charAt(i));
+            t.moveCursor(r,c);
+			t.add(s[i]);
 		}
 	}
 	public static void main(String[] args) {
@@ -34,7 +35,7 @@ public class TerminalDemo {
 		terminal.enterPrivateMode();
 
 		TerminalSize size = terminal.getTerminalSize();
-		terminal.setCursorVisible(false);
+		terminal.setCursorVisible(true);
 
 		boolean running = true;
 
@@ -43,19 +44,19 @@ public class TerminalDemo {
 
 		while(running){
 
-			terminal.moveCursor(x,y);
+			//terminal.moveCursor(x,y);
 			terminal.applyBackgroundColor(Terminal.Color.WHITE);
 			terminal.applyForegroundColor(Terminal.Color.BLACK);
 			//applySGR(a,b) for multiple modifiers (bold,blink) etc.
-			terminal.applySGR(Terminal.SGR.ENTER_UNDERLINE);
-			terminal.putCharacter('\u00a4');
+			//terminal.applySGR(Terminal.SGR.ENTER_UNDERLINE);
+			//terminal.putCharacter('\u00a4');
 			//terminal.putCharacter(' ');
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
-			terminal.applySGR(Terminal.SGR.RESET_ALL);
+			//terminal.applySGR(Terminal.SGR.RESET_ALL);
 
 
-			terminal.moveCursor(size.getColumns()-5,5);
+		/*	terminal.moveCursor(size.getColumns()-5,5);
 			terminal.applyBackgroundColor(Terminal.Color.RED);
 			terminal.applyForegroundColor(Terminal.Color.YELLOW);
 			terminal.applySGR(Terminal.SGR.ENTER_BOLD);
@@ -69,53 +70,40 @@ public class TerminalDemo {
 			terminal.putCharacter(' ');
 			terminal.putCharacter(' ');
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
-			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+			terminal.applyForegroundColor(Terminal.Color.DEFAULT);  */
 
 			Key key = terminal.readInput();
 
 			if (key != null)
 			{
-
+                
+                boolean checker = false;
+                String output = "";
+                
 				if (key.getKind() == Key.Kind.Escape) {
 
 					terminal.exitPrivateMode();
 					running = false;
 				}
+                
+                if (key.getKind() == Key.Kind.NormalKey) {
+                    output += key.getCharacter();
+                    }
+                    
+                    //if (key.getKind() == Key.Kind.Enter) {
+                        putString(1,20,terminal,output);
+                    //}
+                
 
-				if (key.getKind() == Key.Kind.ArrowLeft) {
-					terminal.moveCursor(x,y);
-					terminal.putCharacter(' ');
-					x--;
-				}
-
-				if (key.getKind() == Key.Kind.ArrowRight) {
-					terminal.moveCursor(x,y);
-					terminal.putCharacter(' ');
-					x++;
-				}
-
-				if (key.getKind() == Key.Kind.ArrowUp) {
-					terminal.moveCursor(x,y);
-					terminal.putCharacter(' ');
-					y--;
-				}
-
-				if (key.getKind() == Key.Kind.ArrowDown) {
-					terminal.moveCursor(x,y);
-					terminal.putCharacter(' ');
-					y++;
-				}
-				//space moves it diagonally
-				if (key.getCharacter() == ' ') {
-					terminal.moveCursor(x,y);
-					terminal.putCharacter(' ');
-					y++;
-					x++;
-				}
-				putString(1,4,terminal,"["+key.getCharacter() +"]");
-				putString(1,1,terminal,key+"        ");//to clear leftover letters pad withspaces
+                
+                
+               
+                
+                
+			//	putString(1,4,terminal,"["+key.getCharacter() +"]");
+			//	putString(1,1,terminal,key.getCharacter()+"");//to clear leftover letters pad withspaces
 			}
-
+/*
 			//DO EVEN WHEN NO KEY PRESSED:
 			long tEnd = System.currentTimeMillis();
 			long millis = tEnd - tStart;
@@ -127,7 +115,7 @@ public class TerminalDemo {
 
 			}
 
-
+*/
 		}
 	}
 }
