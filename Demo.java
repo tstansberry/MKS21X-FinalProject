@@ -1,88 +1,103 @@
-import com.googlecode.lanterna.input.*;
-import com.googlecode.lanterna.terminal.*;
-import com.googlecode.lanterna.terminal.ansi.*;
-import com.googlecode.lanterna.TextColor.*;
-import com.googlecode.lanterna.Symbols.*;
-import java.io.IOException;
-public class Menu{
+//API : http://mabe02.github.io/lanterna/apidocs/2.1/
+import com.googlecode.lanterna.terminal.Terminal.SGR;
+import com.googlecode.lanterna.TerminalFacade;
+import com.googlecode.lanterna.input.Key;
+import com.googlecode.lanterna.input.Key.Kind;
+import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.Terminal.Color;
+import com.googlecode.lanterna.terminal.TerminalSize;
+import com.googlecode.lanterna.LanternaException;
+import com.googlecode.lanterna.input.CharacterPattern;
+import com.googlecode.lanterna.input.InputDecoder;
+import com.googlecode.lanterna.input.InputProvider;
+import com.googlecode.lanterna.input.Key;
+import com.googlecode.lanterna.input.KeyMappingProfile;
+
+
+public class Demo {
     
-    
-    public static void putString(int r, int c,Terminal t, String s) throws IOException{
-        t.setCursorPosition(r,c);
+    public static void putString(int r, int c,Terminal t, String s){
+        t.moveCursor(r,c);
         for(int i = 0; i < s.length();i++){
             t.putCharacter(s.charAt(i));
         }
     }
     
-    
-    public static void main(String[] args) throws IOException{
+    public static void putString(int r, int c,Terminal t,
+                                 String s, Terminal.Color forg, Terminal.Color back ){
+        t.moveCursor(r,c);
+        t.applyBackgroundColor(forg);
+        t.applyForegroundColor(Terminal.Color.BLACK);
         
-        Terminal terminal = new UnixTerminal();
+        for(int i = 0; i < s.length();i++){
+            t.putCharacter(s.charAt(i));
+        }
+        t.applyBackgroundColor(Terminal.Color.DEFAULT);
+        t.applyForegroundColor(Terminal.Color.DEFAULT);
+    }
+    public static void main(String[] args) {
+        
+        Terminal terminal = TerminalFacade.createTextTerminal();
         terminal.enterPrivateMode();
+        
+        TerminalSize size = terminal.getTerminalSize();
         terminal.setCursorVisible(false);
         
-        long tStart = System.currentTimeMillis();
-        long lastSecond = 0;
-        int x = 10;
-        int y = 10;
-        
         boolean running = true;
+        int mode = 0;
+        long lastTime =  System.currentTimeMillis();
+        long currentTime = lastTime;
+        long timer = 0;
+        
         
         while(running){
-            terminal.setCursorPosition(x,y);
-            terminal.setBackgroundColor(ANSI.YELLOW);
-            terminal.setForegroundColor(ANSI.RED);
-            terminal.putCharacter('@');
-            terminal.setBackgroundColor(ANSI.DEFAULT);
-            terminal.setForegroundColor(ANSI.DEFAULT);
-            
-            KeyStroke key = terminal.readInput();
-            
-            if (key != null){
+            Key key = terminal.readInput();
+            if (key != null)
+            {
                 
-                if (key.getCharacter().equals('q')) {
-                    terminal.exitPrivateMode();
-                    System.exit(0);
+                //YOU CAN PUT DIFFERENT SETS OF BUTTONS FOR DIFFERENT MODES!!!
+                
+                //only for the game mode.
+                if(mode == 0){
+                    if (key.getKind() == Key.Kind.Escape) {
+                        terminal.exitPrivateMode();
+                        running = false;
+                    }
                 }
                 
-                if (key.getCharacter().equals('a')) {
-                    terminal.setCursorPosition(x,y);
-                    terminal.putCharacter(' ');
-                    x--;
+                //for all modes
+                if (key.getCharacter() == ' ') {
+                    mode++;
+                    mode%=2;//2 modes
+                    terminal.clearScreen();
+                    lastTime = System.currentTimeMillis();
+                    currentTime = System.currentTimeMillis();
                 }
-                
-                if (key.getCharacter().equals('d')) {
-                    terminal.setCursorPosition(x,y);
-                    terminal.putCharacter(' ');
-                    x++;
-                }
-                
-                if (key.getCharacter().equals('w')) {
-                    terminal.setCursorPosition(x,y);
-                    terminal.putCharacter(' ');
-                    y--;
-                }
-                
-                if (key.getCharacter().equals('s')) {
-                    terminal.setCursorPosition(x,y);
-                    terminal.putCharacter(' ');
-                    y++;
-                }
-                
-                putString(1,1,terminal,key+"        ");//to clear leftover letters pad withspaces
             }
             
-            //DO EVEN WHEN NO KEY PRESSED:
-            long tEnd = System.currentTimeMillis();
-            long millis = tEnd - tStart;
-            putString(1,2,terminal,"Milliseconds since start of program: "+millis);
-            if(millis/1000 > lastSecond){
-                lastSecond = millis / 1000;
-                //one second has passed.
-                putString(1,3,terminal,"Seconds since start of program: "+lastSecond);
+            terminal.applySGR(Terminal.SGR.ENTER_BOLD);
+            putString(1,1,terminal, "This is mode "+mode,Terminal.Color.WHITE,Terminal.Color.RED);
+            terminal.applySGR(Terminal.SGR.RESET_ALL);
+            
+            
+            if(mode==0){
+                lastTime = currentTime;
+                currentTime = System.currentTimeMillis();
+                timer += (currentTime -lastTime);//add the amount of time since the last frame.
+                //DO GAME STUFF HERE
+                putString(1,3,terminal, "Game here...",Terminal.Color.WHITE,Terminal.Color.RED);
+                putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
+                
+            }else{
+                
+                terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
+                putString(1,3,terminal, "Not game, just a pause!",Terminal.Color.RED,Terminal.Color.WHITE);
+                terminal.applySGR(Terminal.SGR.RESET_ALL);
+                
             }
+            
         }
         
+        
     }
-    
 }
