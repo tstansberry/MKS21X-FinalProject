@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    System.out.println(getDefinition(args[0], Integer.parseInt(args[1])));
+    System.out.println(getAllDefinitions(args[0]));
   }
 
   public static String getDefinition(String word, int definitionNumber) throws IOException {
@@ -19,6 +19,7 @@ public class Scraper {
       Elements li = targetInfo.getElementsByTag("li");
       boolean found = false;
       Element clutteredDefinition = null;
+
       for (int x = 0; x < li.size() && ! found; x ++) {
         clutteredDefinition = li.get(x);
         if (checkValueTag(clutteredDefinition, definitionNumber)) found = true;
@@ -32,6 +33,21 @@ public class Scraper {
     catch(org.jsoup.HttpStatusException e) {
       return "Uh oh, something went wrong. Please make sure your number and word are correct!";
     }
+  }
+
+  public static String getAllDefinitions(String word) throws IOException{
+    String error = "Uh oh, something went wrong. Please make sure your number and word are correct!";
+    String output = "";
+    boolean stopped = false;
+    for (int x = 0; ! stopped; x ++) {
+      if (! getDefinition(word, x).equals(error)) {
+        output += (x + 1) + ". " + getDefinition(word, x) + "\n";
+      }
+      else {
+        stopped = true;
+      }
+    }
+    return output;
   }
 
   private static boolean checkValueTag(Element html, int target) {
