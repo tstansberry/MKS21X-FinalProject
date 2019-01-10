@@ -61,8 +61,20 @@ public class OutputString extends JFrame implements ActionListener {
         }
     }
     
+    public static String Def(String word){
+        return "defintion";
+    }
     
-  
+    public static String Syn(String word){
+        return "synonym";
+    }
+    
+    
+    public static void main(String[] args){
+        OutputString t = new OutputString();
+        t.setVisible(true);
+    }}
+
 
 
 
