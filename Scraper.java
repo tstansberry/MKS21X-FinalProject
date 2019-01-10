@@ -30,7 +30,7 @@ public class Scraper {
         if (checkValueTag(clutteredDefinition, definitionNumber)) found = true;
       }
       if (! found) throw new IndexOutOfBoundsException();
-      return clutteredDefinition.toString();
+      return clutteredDefinition.wholeText().toString();
     }
     catch(IndexOutOfBoundsException e) {
       return "Uh oh, something went wrong. Please make sure your number and word are correct!";
@@ -45,4 +45,9 @@ public class Scraper {
     if (targetChar != htmlString.charAt(11)) return false;
     return true;
   }
+
+  public static String html2text(String html) {
+    return Jsoup.parse(html).text();
+}
+
 }
