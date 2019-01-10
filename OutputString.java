@@ -73,7 +73,8 @@ public class OutputString extends JFrame implements ActionListener {
     public static void main(String[] args){
         OutputString t = new OutputString();
         t.setVisible(true);
-    }}
+    }
+}
 
 
 
