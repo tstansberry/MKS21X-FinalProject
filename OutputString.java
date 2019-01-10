@@ -50,8 +50,19 @@ public class OutputString extends JFrame implements ActionListener {
             box.add(t);
         }
         
-       
+    public void actionPerformed(ActionEvent e){
+        String s = e.getActionCommand();
+        System.out.println(s);
+        if(s.equals("defintion")){
+            t.setText("");
+        }
+        if(s.equals("synonym")){
+            t.setText( "");
+        }
+    }
     
+    
+  
 
 
 
