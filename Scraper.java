@@ -24,6 +24,9 @@ public class Scraper {
         clutteredDefinition = li.get(x);
         if (checkValueTag(clutteredDefinition, definitionNumber)) found = true;
       }
+      if (definitionNumber == null || definitionNumber == 0){
+        return getAllDefinitions(word);
+      }
       if (! found) throw new IndexOutOfBoundsException();
       return clutteredDefinition.wholeText().toString();
     }
