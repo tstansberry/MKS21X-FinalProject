@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    System.out.println(getAllDefinitions(args[0]));
+    System.out.println(getSynonyms("help"));
   }
 
   public static String getDefinition(String word, int definitionNumber) throws IOException {
@@ -24,14 +24,37 @@ public class Scraper {
         clutteredDefinition = li.get(x);
         if (checkValueTag(clutteredDefinition, definitionNumber)) found = true;
       }
+      /*
       if (definitionNumber == null || definitionNumber == 0){
         return getAllDefinitions(word);
       }
+      */
       if (! found) throw new IndexOutOfBoundsException();
       return clutteredDefinition.wholeText().toString();
     }
     catch(IndexOutOfBoundsException e) {
       return "Uh oh, something went wrong. Please make sure your number and word are correct!";
+    }
+    catch(org.jsoup.HttpStatusException e) {
+      return "Uh oh, something went wrong. Please make sure your number and word are correct!";
+    }
+  }
+
+  public static String getSynonyms(String word) throws IOException{
+    try {
+      Document doc;
+      doc = Jsoup.connect("https://www.thesaurus.com/browse/" + word.toLowerCase()).get();
+
+      Elements section = doc.getElementsByTag("section");
+      Element targetInfo = section.get(2);
+      Elements li = targetInfo.getElementsByTag("li");
+      boolean found = false;
+      String output = "";
+      for (int x = 0; x < li.size(); x ++) {
+        output += html2text(li.get(x).toString()) + ", ";
+      }
+      output.substring(0, output.length() - 2);
+      return output;
     }
     catch(org.jsoup.HttpStatusException e) {
       return "Uh oh, something went wrong. Please make sure your number and word are correct!";
@@ -48,6 +71,7 @@ public class Scraper {
       }
       else {
         stopped = true;
+        if (x == 0) return error;
       }
     }
     return output;
