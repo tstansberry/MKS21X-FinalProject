@@ -19,4 +19,9 @@ Vishwaa- Helped Timothy find the associated tags so he could modify the Elemnent
 # January 9th
 Timothy- Played around with various ways to access the specific definitions we needed... finally settled on the hard-coded way since the functions from the Elements interface weren't working. Made it possible to input the specific definition you want (0, 1, 2, etc.).
 Vishwaa- Changed the output to only return the text within the HTML tags. Started working on terminal interface.
-
+# January 10th
+Timothy- Wasn't able to work on anything, studying for 2 tests.
+Vishwaa-
+# January 11th-13th
+Timothy- Added a new scraping method to get synonyms from thesaurus.com. Created a master function that complies all the methods into one.
+Vishwaa-
