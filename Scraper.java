@@ -7,7 +7,17 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    System.out.println(getSynonyms("help"));
+    System.out.println(master(args));
+  }
+
+  public static String master(String args[]) throws IOException{
+    String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
+    if (args.length <= 1) return error;
+    else if (args[0].equals("definition")) return getAllDefinitions(args[1]);
+    else if (args[0].equals("synonyms")) return getSynonyms(args[1]);
+    else {
+      return error;
+    }
   }
 
   public static String getDefinition(String word, int definitionNumber) throws IOException {
