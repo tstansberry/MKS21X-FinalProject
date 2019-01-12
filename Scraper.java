@@ -21,6 +21,7 @@ public class Scraper {
   }
 
   public static String getDefinition(String word, int definitionNumber) throws IOException {
+    String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
     try {
       Document doc;
       doc = Jsoup.connect("https://www.dictionary.com/browse/" + word.toLowerCase()).get();
@@ -43,10 +44,10 @@ public class Scraper {
       return clutteredDefinition.wholeText().toString();
     }
     catch(IndexOutOfBoundsException e) {
-      return "Uh oh, something went wrong. Please make sure your number and word are correct!";
+      return error;
     }
     catch(org.jsoup.HttpStatusException e) {
-      return "Uh oh, something went wrong. Please make sure your number and word are correct!";
+      return error;
     }
   }
 
@@ -67,12 +68,12 @@ public class Scraper {
       return output;
     }
     catch(org.jsoup.HttpStatusException e) {
-      return "Uh oh, something went wrong. Please make sure your number and word are correct!";
+      return "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
     }
   }
 
   public static String getAllDefinitions(String word) throws IOException{
-    String error = "Uh oh, something went wrong. Please make sure your number and word are correct!";
+    String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
     String output = "";
     boolean stopped = false;
     for (int x = 0; ! stopped; x ++) {
