@@ -10,6 +10,7 @@ public class Scraper {
     System.out.println(master(args));
   }
 
+  //Compiles all the methods into one, taking the place of main
   public static String master(String args[]) throws IOException{
     String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
     if (args.length <= 1) return error;
@@ -20,6 +21,7 @@ public class Scraper {
     }
   }
 
+  //Original code, gets a specific definition for a word
   public static String getDefinition(String word, int definitionNumber) throws IOException {
     String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
     try {
@@ -35,11 +37,6 @@ public class Scraper {
         clutteredDefinition = li.get(x);
         if (checkValueTag(clutteredDefinition, definitionNumber)) found = true;
       }
-      /*
-      if (definitionNumber == null || definitionNumber == 0){
-        return getAllDefinitions(word);
-      }
-      */
       if (! found) throw new IndexOutOfBoundsException();
       return clutteredDefinition.wholeText().toString();
     }
@@ -51,6 +48,7 @@ public class Scraper {
     }
   }
 
+  //Uses thesaurus.com to get the synonyms for a given word
   public static String getSynonyms(String word) throws IOException{
     try {
       Document doc;
@@ -72,6 +70,7 @@ public class Scraper {
     }
   }
 
+  //Using the previous method, gets all the definitions for a word
   public static String getAllDefinitions(String word) throws IOException{
     String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
     String output = "";
@@ -88,6 +87,7 @@ public class Scraper {
     return output;
   }
 
+  //Helper function for getDefinition
   private static boolean checkValueTag(Element html, int target) {
     target ++;
     String htmlString = html.toString();
@@ -97,8 +97,8 @@ public class Scraper {
     return true;
   }
 
+  //Removes the html tags from a string
   public static String html2text(String html) {
     return Jsoup.parse(html).text();
-}
-
+  }
 }
