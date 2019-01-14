@@ -28,6 +28,7 @@ public class TerminalDemo {
   long tempend = 0;
   long lastSecond = 0;
   String output = "";
+  boolean checker = true;
   boolean firstEnterOver = false;
   boolean SecondEnter = false;
   String mode = "";
@@ -35,7 +36,7 @@ public class TerminalDemo {
   TerminalSize size = screen.getTerminalSize();
   TextGraphics tg = screen.newTextGraphics();
 
-  while (true) {
+  while (checker) {
 
     // Score Keeping
     long tEnd = System.currentTimeMillis();
@@ -61,7 +62,7 @@ public class TerminalDemo {
     KeyStroke key = screen.pollInput();
 			if (key != null && !firstEnterOver) {
 				if (key.getKeyType() == KeyType.Escape){
-        break;
+        		checker = false;
       }
 
 				if ((key.getKeyType() == KeyType.Character)) {
@@ -75,10 +76,34 @@ public class TerminalDemo {
         if ((key.getKeyType() == KeyType.Enter)){
           putString(1,10,screen,"The word you have inputted is: " + output + ".");
           firstEnterOver = true;
+          key = null;
         }
 			}
 
       putString(1,9,screen,output);
+
+      if (firstEnterOver){
+        putString(1,12,screen,"Please choose a mode. The available modes are: (1) defintion and (2) synonym. Input either 1 or 2.");
+        putString(1,13,screen,"Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
+
+  			if (key != null) {
+  				if (key.getKeyType() == KeyType.Escape){
+          		checker = false;
+        }
+
+  				if ((key.getKeyType() == KeyType.Character)) {
+            mode += key.getCharacter();
+  				}
+
+          if ((key.getKeyType() == KeyType.Enter)){
+            putString(1,15,screen,"The mode you have requested is: " + mode + ".");
+            SecondEnter =  true;
+
+          }
+  			}
+
+      putString(1,14,screen,mode);
+    }
 
 
 
