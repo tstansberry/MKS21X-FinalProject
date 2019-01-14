@@ -25,14 +25,12 @@ public class TerminalDemo {
     int placeholder = i;
     if (str.charAt(i) == '\n') {
       y ++;
-      x = 0;
       placeholder = 0;
     }
-    else if ((checker+i) % (screen.getTerminalSize().getColumns()-5) == 0){
+    else if ((x+placeholder) % (screen.getTerminalSize().getColumns()-5) == 0){
       y += 1;
-      x = 0;
       placeholder = 0;
-    }
+    } //test again please
     else{
       placeholder++;
     }
