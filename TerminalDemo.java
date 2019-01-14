@@ -105,8 +105,19 @@ public class TerminalDemo {
       putString(1,14,screen,mode);
     }
 
-
-
+    if (SecondEnter){
+      if (mode.equals("1")) {
+        putString(1,17,screen, "Success!");
+      //  putString(1,18,Scraper.master("definition", output));
+      }
+      else if (mode.equals("2")) {
+        putString(1,17,screen, "Success!");
+      //  putString(1,18,Scraper.master("synonyms", output));
+      }
+      else{
+        putString(1,17,screen,"Sorry but the mode you entered is invalid.");
+      }
+    }
 
 
     screen.doResizeIfNecessary();
