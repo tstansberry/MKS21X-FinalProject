@@ -11,11 +11,11 @@ public class Scraper {
   }
 
   //Compiles all the methods into one, taking the place of main
-  public static String master(String args[]) throws IOException{
+  public static String master(String returnType, String word) throws IOException{
     String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
     if (args.length <= 1) return error;
-    else if (args[0].equals("definition")) return getAllDefinitions(args[1]);
-    else if (args[0].equals("synonyms")) return getSynonyms(args[1]);
+    else if (returnType.equals("definition")) return getAllDefinitions(word);
+    else if (returnType.equals("synonyms")) return getSynonyms(word);
     else {
       return error;
     }
