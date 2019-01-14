@@ -1,4 +1,4 @@
-//API : http://mabe02.github.io/lanterna/apidocs/2.1/
+//API : http://mabe02.github.io/lanterna/apidocs/3.0/
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.input.*;
 import com.googlecode.lanterna.terminal.*;
@@ -27,6 +27,10 @@ public class TerminalDemo {
   long temptime = 0;
   long tempend = 0;
   long lastSecond = 0;
+  String output = "";
+  boolean firstEnterOver = false;
+  boolean SecondEnter = false;
+  String mode = "";
 
   TerminalSize size = screen.getTerminalSize();
   TextGraphics tg = screen.newTextGraphics();
@@ -51,27 +55,33 @@ public class TerminalDemo {
 
     }
 
-    output = "";
+    putString(1,7,screen,"Please start typing a word. Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
+
 
     KeyStroke key = screen.pollInput();
-			if (key != null) {
+			if (key != null && !firstEnterOver) {
 				if (key.getKeyType() == KeyType.Escape){
         break;
       }
 
 				if ((key.getKeyType() == KeyType.Character)) {
           output += key.getCharacter();
-					temptime = millis;
-					tempend = temptime + 1000;
+        }
 
-				}
+        if (key.getKeyType() == KeyType.Backspace) {
+          output = output.substring(0, output.length() - 1);
+        }
 
         if ((key.getKeyType() == KeyType.Enter)){
-          putString(1,10,screen,"The word you have inputted is:" + output);
+          putString(1,10,screen,"The word you have inputted is: " + output + ".");
+          firstEnterOver = true;
         }
 			}
 
-      //DO EVEN WHEN NO KEY PRESSED:
+      putString(1,9,screen,output);
+
+
+
 
 
     screen.doResizeIfNecessary();
