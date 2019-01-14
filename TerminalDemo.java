@@ -1,5 +1,3 @@
-
-
 //API : http://mabe02.github.io/lanterna/apidocs/2.1/
 import com.googlecode.lanterna.terminal.Terminal.SGR;
 import com.googlecode.lanterna.TerminalFacade;
@@ -15,14 +13,13 @@ import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 
-
 public class TerminalDemo {
 
 	public static void putString(int r, int c,Terminal t, String s){
 		t.moveCursor(r,c);
 		for(int i = 0; i < s.length();i++){
             t.moveCursor(r,c);
-			t.add(s[i]);
+			t.putCharacter(s.charAt(i));
 		}
 	}
 	public static void main(String[] args) {
@@ -76,30 +73,30 @@ public class TerminalDemo {
 
 			if (key != null)
 			{
-                
+
                 boolean checker = false;
                 String output = "";
-                
+
 				if (key.getKind() == Key.Kind.Escape) {
 
 					terminal.exitPrivateMode();
 					running = false;
 				}
-                
+
                 if (key.getKind() == Key.Kind.NormalKey) {
                     output += key.getCharacter();
                     }
-                    
+
                     //if (key.getKind() == Key.Kind.Enter) {
                         putString(1,20,terminal,output);
                     //}
-                
 
-                
-                
-               
-                
-                
+
+
+
+
+
+
 			//	putString(1,4,terminal,"["+key.getCharacter() +"]");
 			//	putString(1,1,terminal,key.getCharacter()+"");//to clear leftover letters pad withspaces
 			}
