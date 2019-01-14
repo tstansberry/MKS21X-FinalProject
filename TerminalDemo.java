@@ -21,20 +21,20 @@ public class TerminalDemo {
 
   public static void putStringSpecial(int x, int y, Screen screen, String str) {
   int checker = x;
-  for (int i = 0; i < str.length(); ++i) {
-    int placeholder = i;
-    if (str.charAt(i) == '\n') {
-      y ++;
+  int placeholder = 0;
+  for (int index = 0; index < str.length(); index++) {
+    if (str.charAt(index) == '|') {
+      y++;
       placeholder = 0;
     }
     else if ((x+placeholder) % (screen.getTerminalSize().getColumns()-5) == 0){
-      y += 1;
+      y ++ ;
       placeholder = 0;
-    } //test again please
+    }
     else{
       placeholder++;
     }
-      screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(i)));
+      screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index)));
     } // breaks the code based on the screen size
 
     // yours would add a new feature which breaks the line based off \n does that make sense to you
@@ -139,7 +139,11 @@ public static void main(String[] args) throws IOException {
       if (mode.equals("1")) {
         putString(1,17,screen, "Successful Mode Entry!");
         String result = Scraper.master("definition", output);
-        putStringSpecial(1,19,screen,result);
+        String lookingFor = "\n";
+        String replaceWith = "|";
+        String newResult = result.replace(lookingFor,replaceWith);
+        screen.doResizeIfNecessary();
+        putStringSpecial(1,19,screen,newResult);
       }
       else if (mode.equals("2")) {
         putString(1,17,screen, "Successful Mode Entry!");
