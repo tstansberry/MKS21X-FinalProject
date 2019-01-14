@@ -23,5 +23,5 @@ Vishwaa- Changed the output to only return the text within the HTML tags. Starte
 Timothy- Wasn't able to work on anything, studying for 2 tests. <br />
 Vishwaa-
 # January 11th-13th
-Timothy- Added a new scraping method to get synonyms from thesaurus.com. Created a master function that complies all the methods into one. <br />
+Timothy- Added a new scraping method to get synonyms from thesaurus.com. Created a master function that complies all the methods into one. Added comments into code.<br />
 Vishwaa-
