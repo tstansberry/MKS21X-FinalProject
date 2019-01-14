@@ -120,6 +120,7 @@ public static void main(String[] args) throws IOException {
 
     if (SecondEnter){
       if (mode.equals("1")) {
+<<<<<<< HEAD
         putString(1,17,screen, "Successful Mode Entry!");
         String result = Scraper.master("definition", output);
         putStringSpecial(1,19,screen,result);
@@ -128,6 +129,16 @@ public static void main(String[] args) throws IOException {
         putString(1,17,screen, "Successful Mode Entry!");
         String result = Scraper.master("synonyms", output);
         putString(1,19,screen,result);
+=======
+        putString(1,17,screen, "Success!");
+        screen.doResizeIfNecessary();
+        putString(1,18, screen, Scraper.master("definition", output));
+      }
+      else if (mode.equals("2")) {
+        putString(1,17,screen, "Success!");
+        screen.doResizeIfNecessary();
+        putString(1,18,screen,Scraper.master("synonyms", output));
+>>>>>>> 9852fc0953093daa30b0489c91c415819fc36992
       }
       else{
         putString(1,17,screen,"Sorry but the mode you entered is invalid. Click ENTER to reset or ESC to quit.");
