@@ -20,9 +20,11 @@ public class TerminalDemo {
 
 	public static void putString(int r, int c,Terminal t, String s){
 		t.moveCursor(r,c);
+        int CurrentRow = r;
 		for(int i = 0; i < s.length();i++){
             t.moveCursor(r,c);
-			t.add(s[i]);
+			t.putCharacter(s.charAt(i));
+            r++;
 		}
 	}
 	public static void main(String[] args) {
@@ -73,12 +75,14 @@ public class TerminalDemo {
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT);  */
 
 			Key key = terminal.readInput();
-
+            
+            String output = "";
+            
 			if (key != null)
 			{
                 
                 boolean checker = false;
-                String output = "";
+                
                 
 				if (key.getKind() == Key.Kind.Escape) {
 
@@ -89,21 +93,20 @@ public class TerminalDemo {
                 if (key.getKind() == Key.Kind.NormalKey) {
                     output += key.getCharacter();
                     }
+                
+                /*if (key.getKind() == Key.Kind.Enter) {
                     
-                    //if (key.getKind() == Key.Kind.Enter) {
-                        putString(1,20,terminal,output);
-                    //}
-                
-
-                
-                
+                }*/
                
                 
                 
 			//	putString(1,4,terminal,"["+key.getCharacter() +"]");
 			//	putString(1,1,terminal,key.getCharacter()+"");//to clear leftover letters pad withspaces
 			}
-/*
+
+                putString(1,20,terminal,output);
+           
+                        /*
 			//DO EVEN WHEN NO KEY PRESSED:
 			long tEnd = System.currentTimeMillis();
 			long millis = tEnd - tStart;
