@@ -115,7 +115,7 @@ public class TerminalDemo {
       //  putString(1,18,Scraper.master("synonyms", output));
       }
       else{
-        putString(1,17,screen,"Sorry but the mode you entered is invalid.");
+        putString(1,17,screen,"Sorry but the mode you entered is invalid. Click ENTER to reset or ESC to quit.");
       }
     }
 
