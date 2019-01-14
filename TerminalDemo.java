@@ -23,7 +23,12 @@ public class TerminalDemo {
   int checker = x;
   for (int i = 0; i < str.length(); ++i) {
     int placeholder = i;
-    if ((checker+i) % (screen.getTerminalSize().getColumns()-5) == 0){
+    if (str.charAt(i) == '\n') {
+      y ++;
+      x = 0;
+      placeholder = 0;
+    }
+    else if ((checker+i) % (screen.getTerminalSize().getColumns()-5) == 0){
       y += 1;
       x = 0;
       placeholder = 0;
@@ -32,8 +37,16 @@ public class TerminalDemo {
       placeholder++;
     }
       screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(i)));
-    }
-  }
+    } // breaks the code based on the screen size
+
+    // yours would add a new feature which breaks the line based off \n does that make sense to you
+    // yea basically we are coding the best possible version of a putString
+     // you cant j copy paste it youll have to integrate it into it // yours matters more because mine wont work unless yours does
+// just check the logic and even if one word works we are valid // is there any word that only has 1 defintion lol
+// also we could change the Scraper to only return one def
+  screen.doResizeIfNecessary();
+}
+
 
 public static void main(String[] args) throws IOException {
 
