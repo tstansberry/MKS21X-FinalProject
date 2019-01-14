@@ -7,14 +7,13 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    System.out.println(master(args));
+    System.out.println(master(args[0], args[1]));
   }
 
   //Compiles all the methods into one, taking the place of main
   public static String master(String returnType, String word) throws IOException{
     String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
-    if (args.length <= 1) return error;
-    else if (returnType.equals("definition")) return getAllDefinitions(word);
+    if (returnType.equals("definition")) return getAllDefinitions(word);
     else if (returnType.equals("synonyms")) return getSynonyms(word);
     else {
       return error;
