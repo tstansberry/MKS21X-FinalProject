@@ -1,6 +1,20 @@
 # MKS21X-FinalProject
-Final Project Name: Easy-Access Dictionary? <br />
-Group Name: Group Name
+Final Project Name: Terminal Dictionary 
+Group Name: Soberry
+
+<br />
+
+Instructions to use our project:
+
+1. javac -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo.java
+2. java -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo
+3. Type in a word 
+4. Press ENTER
+5. Type in a mode
+6. Press ENTER
+7. Dictionary does it's magic ;)
+
+<br />
 
 # January 3rd
 Timothy- Spent time studying Oxford API and its functionality, tested out sample programs from the documentation. Ultimately decided that is was too complicated and didn't have enough documentation. <br />
@@ -17,11 +31,13 @@ Vishwaa- Familiarized myself with JSOUP and the current code. Helped Timothy wit
 Timothy- Switched up the functionality of the parser. Instead of taking the easy route (definition provided at the top), it now goes down deep into the code and finds the location with all possible definitions. Currently having an error with the Element method "getAttribute()". <br />
 Vishwaa- Helped Timothy find the associated tags so he could modify the Elemnent part of the code accoringly. We decided to use <li> as the tag had an associated "value" ID, which we coould locate. 
 # January 9th
-Timothy- Played around with various ways to access the specific definitions we needed... finally settled on the hard-coded way since the functions from the Elements interface weren't working. Made it possible to input the specific definition you want (0, 1, 2, etc.).
+Timothy- Played around with various ways to access the specific definitions we needed... finally settled on the hard-coded way since the functions from the Elements interface weren't working. Made it possible to input the specific definition you want (0, 1, 2, etc.). <br />
 Vishwaa- Changed the output to only return the text within the HTML tags. Started working on terminal interface.
 # January 10th
 Timothy- Wasn't able to work on anything, studying for 2 tests. <br />
-Vishwaa-
+Vishwaa- Finished developing a GUI screen. Had to switch to using lanterna.
 # January 11th-13th
 Timothy- Added a new scraping method to get synonyms from thesaurus.com. Created a master function that complies all the methods into one. Added comments into code.<br />
-Vishwaa-
+Vishwaa- Developed a usable lanterna screen which takes user input and displays result from Scraper.java. 
+--Presentations--
+  
