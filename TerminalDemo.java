@@ -108,10 +108,12 @@ public class TerminalDemo {
     if (SecondEnter){
       if (mode.equals("1")) {
         putString(1,17,screen, "Success!");
+        screen.doResizeIfNecessary();
         putString(1,18, screen, Scraper.master("definition", output));
       }
       else if (mode.equals("2")) {
         putString(1,17,screen, "Success!");
+        screen.doResizeIfNecessary();
         putString(1,18,screen,Scraper.master("synonyms", output));
       }
       else{
