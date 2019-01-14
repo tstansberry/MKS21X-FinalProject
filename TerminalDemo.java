@@ -125,6 +125,11 @@ public static void main(String[] args) throws IOException {
           mode += key.getCharacter();
         }
 
+        if (key.getKeyType() == KeyType.Backspace) {
+          mode = mode.substring(0, mode.length() - 1);
+          screen.refresh();
+        }
+
         if ((key.getKeyType() == KeyType.Enter)){
           putString(1,15,screen,"The mode you have requested is: " + mode + ".");
           SecondEnter =  true;
