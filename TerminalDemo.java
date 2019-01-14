@@ -22,10 +22,16 @@ public class TerminalDemo {
   public static void putStringSpecial(int x, int y, Screen screen, String str) {
   int checker = x;
   for (int i = 0; i < str.length(); ++i) {
+    int placeholder = i;
     if ((checker+i) % (screen.getTerminalSize().getColumns()-5) == 0){
       y += 1;
-      x = 0;}
-      screen.setCharacter(x+i, y, new TextCharacter(str.charAt(i)));
+      x = 0;
+      placeholder = 0;
+    }
+    else{
+      placeholder++;
+    }
+      screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(i)));
     }
   }
 
@@ -56,7 +62,7 @@ public static void main(String[] args) throws IOException {
       putString(1,3,screen,"Seconds since start of program: "+lastSecond);
 
     }
-
+  putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY");
   // putString(1,2,screen,""+size.getRows()+" "+size.getColumns()); // for testing
 
     // Resize Screen and Display Content
@@ -120,7 +126,6 @@ public static void main(String[] args) throws IOException {
 
     if (SecondEnter){
       if (mode.equals("1")) {
-<<<<<<< HEAD
         putString(1,17,screen, "Successful Mode Entry!");
         String result = Scraper.master("definition", output);
         putStringSpecial(1,19,screen,result);
@@ -128,17 +133,8 @@ public static void main(String[] args) throws IOException {
       else if (mode.equals("2")) {
         putString(1,17,screen, "Successful Mode Entry!");
         String result = Scraper.master("synonyms", output);
-        putString(1,19,screen,result);
-=======
-        putString(1,17,screen, "Success!");
+        putStringSpecial(1,19,screen,result);
         screen.doResizeIfNecessary();
-        putString(1,18, screen, Scraper.master("definition", output));
-      }
-      else if (mode.equals("2")) {
-        putString(1,17,screen, "Success!");
-        screen.doResizeIfNecessary();
-        putString(1,18,screen,Scraper.master("synonyms", output));
->>>>>>> 9852fc0953093daa30b0489c91c415819fc36992
       }
       else{
         putString(1,17,screen,"Sorry but the mode you entered is invalid. Click ENTER to reset or ESC to quit.");
