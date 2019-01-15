@@ -37,46 +37,8 @@ public class TerminalDemo {
       screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index)));
     } // breaks the code based on the screen size
 
-<<<<<<< HEAD
-    // yours would add a new feature which breaks the line based off \n does that make sense to you
-    // yea basically we are coding the best possible version of a putString
-    // you cant j copy paste it youll have to integrate it into it // yours matters more because mine wont work unless yours does
-    // just check the logic and even if one word works we are valid // is there any word that only has 1 defintion lol
-    // also we could change the Scraper to only return one def
-    screen.doResizeIfNecessary();
-  }
-=======
   screen.doResizeIfNecessary();
 }
-
-
-public static void main(String[] args) throws IOException {
-
-  Screen screen = new DefaultTerminalFactory().createScreen();
-  screen.startScreen(); // display and creation of screen
-
-  long tStart = System.currentTimeMillis();
-  long temptime = 0;
-  long tempend = 0;
-  long lastSecond = 0;
-  String output = "";
-  boolean checker = true;
-  boolean firstEnterOver = false;
-  boolean SecondEnter = false;
-  String mode = "";
-
-  TerminalSize size = screen.getTerminalSize();
-  TextGraphics tg = screen.newTextGraphics();
-
-  while (checker) {
-
-    long tEnd = System.currentTimeMillis();
-    long millis = tEnd - tStart;
-    if(millis/1000 > lastSecond){
-      lastSecond = millis / 1000;
-      putString(1,3,screen,"Seconds since start of program: "+lastSecond);
->>>>>>> 980a17d331d8aa6af7d0d6778606f87f52b71454
-
 
   public static void main(String[] args) throws IOException {
 
@@ -108,16 +70,13 @@ public static void main(String[] args) throws IOException {
       putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY");
       // putString(1,2,screen,""+size.getRows()+" "+size.getColumns()); // for testing
 
-      // Resize Screen and Display Content
       TerminalSize testsize = screen.getTerminalSize();
       if (testsize.getRows() != size.getRows() || testsize.getColumns() != size.getColumns()) {
         screen.clear();
         size = testsize;
-
       }
 
       putString(1,7,screen,"Please start typing a word. Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
-
 
       KeyStroke key = screen.pollInput();
       if (key != null && !firstEnterOver) {
@@ -130,19 +89,17 @@ public static void main(String[] args) throws IOException {
         }
 
         if (key.getKeyType() == KeyType.Backspace) {
-<<<<<<< HEAD
+
           output = output.substring(0, output.length() - 1);
           screen.refresh();
         }
-=======
-          mode = mode.substring(0, mode.length() - 1);
-          screen.refresh();
-        }
 
-        if ((key.getKeyType() == KeyType.Enter)){
+          screen.refresh();
+
+
+       if ((key.getKeyType() == KeyType.Enter)){
           putString(1,15,screen,"The mode you have requested is: " + mode + ".");
-          SecondEnter =  true;
->>>>>>> 980a17d331d8aa6af7d0d6778606f87f52b71454
+          SecondEnter =  true;}
 
         if ((key.getKeyType() == KeyType.Enter)){
           putString(1,10,screen,"The word you have inputted is: " + output + ".");
@@ -197,11 +154,10 @@ public static void main(String[] args) throws IOException {
           putString(1,17,screen,"Sorry but the mode you entered is invalid. Click ENTER to reset or ESC to quit.");
         }
       }
-
-
       screen.doResizeIfNecessary();
       screen.refresh();}
 
       screen.stopScreen();
     }
+
   }

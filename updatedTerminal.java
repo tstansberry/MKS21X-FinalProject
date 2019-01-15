@@ -16,7 +16,8 @@ public class updatedTerminal{
 public static void putString(int x, int y, Screen screen, String str) {
   for (int i = 0; i < str.length(); i++) {
     screen.setCharacter(x+i, y, new TextCharacter(str.charAt(i)));
-  }}
+  }
+}
 
 public static void putStringSpecial(int x, int y, Screen screen, String str) {
   int checker = x;
@@ -34,7 +35,8 @@ public static void putStringSpecial(int x, int y, Screen screen, String str) {
       placeholder++;
     }
     screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index)));
-  }}
+  }
+}
 
   public static void main(String args[]) throws IOException{
     Screen screen = new DefaultTerminalFactory().createScreen();
@@ -45,7 +47,7 @@ public static void putStringSpecial(int x, int y, Screen screen, String str) {
     long tempend = 0;
     long lastSecond = 0;
     String output = "";
-    boolean running = true;
+    boolean checker = true;
     boolean firstEnterOver = false;
     boolean SecondEnter = false;
     String mode = "";
@@ -53,9 +55,36 @@ public static void putStringSpecial(int x, int y, Screen screen, String str) {
     TerminalSize size = screen.getTerminalSize();
     TextGraphics tg = screen.newTextGraphics();
 
-    while (running) {
+    while (checker) {
       KeyStroke key = screen.pollInput();
       if (key != null) {
+
+          if (key.getKeyType() == KeyType.Escape){
+            checker = false;
+          }
+
+          if ((key.getKeyType() == KeyType.Character)) {
+            output += key.getCharacter();
+          }
+
+          if (key.getKeyType() == KeyType.Backspace) {
+
+            output = output.substring(0, output.length() - 1);
+            screen.refresh();
+          }
+
+            screen.refresh();
+
+          if ((key.getKeyType() == KeyType.Enter)){
+            putString(1,15,screen,"The mode you have requested is: " + mode + ".");
+            SecondEnter =  true;}
+
+          if ((key.getKeyType() == KeyType.Enter)){
+            putString(1,10,screen,"The word you have inputted is: " + output + ".");
+            firstEnterOver = true;
+            key = null;
+          }}
+
         if (mode.equals("menu")) {
           long tEnd = System.currentTimeMillis();
           long millis = tEnd - tStart;
@@ -80,4 +109,3 @@ public static void putStringSpecial(int x, int y, Screen screen, String str) {
       }
     }
   }
-}
