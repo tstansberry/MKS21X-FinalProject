@@ -10,8 +10,32 @@ import java.awt.Color;
 import java.util.*;
 import java.io.*;
 
+public class updatedTerminal{
 
-public class updatedTerminal {
+
+public static void putString(int x, int y, Screen screen, String str) {
+  for (int i = 0; i < str.length(); i++) {
+    screen.setCharacter(x+i, y, new TextCharacter(str.charAt(i)));
+  }}
+
+public static void putStringSpecial(int x, int y, Screen screen, String str) {
+  int checker = x;
+  int placeholder = 0;
+  for (int index = 0; index < str.length(); index++) {
+    if (str.charAt(index) == '|') {
+      y++;
+      placeholder = 0;
+    }
+    else if ((x+placeholder) % (screen.getTerminalSize().getColumns()-5) == 0){
+      y ++ ;
+      placeholder = 0;
+    }
+    else{
+      placeholder++;
+    }
+    screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index)));
+  }}
+
   public static void main(String args[]) throws IOException{
     Screen screen = new DefaultTerminalFactory().createScreen();
     screen.startScreen(); // display and creation of screen
@@ -30,7 +54,7 @@ public class updatedTerminal {
     TextGraphics tg = screen.newTextGraphics();
 
     while (running) {
-      Key key = terminal.readInput();
+      KeyStroke key = screen.pollInput();
       if (key != null) {
         if (mode.equals("menu")) {
           long tEnd = System.currentTimeMillis();
@@ -38,7 +62,7 @@ public class updatedTerminal {
           if(millis/1000 > lastSecond){
             lastSecond = millis / 1000;
             putString(1,3,screen,"Seconds since start of program: "+lastSecond);
-            
+
           }
           putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY");
           putString(3,2, screen, "Press (1) for the dictionary, (2) for thesaurus, and (3) for matching game.");

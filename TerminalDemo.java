@@ -103,7 +103,7 @@ public static void main(String[] args) throws IOException {
       if(millis/1000 > lastSecond){
         lastSecond = millis / 1000;
         putString(1,3,screen,"Seconds since start of program: "+lastSecond);
-        
+
       }
       putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY");
       // putString(1,2,screen,""+size.getRows()+" "+size.getColumns()); // for testing
