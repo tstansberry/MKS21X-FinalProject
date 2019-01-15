@@ -37,6 +37,15 @@ public class TerminalDemo {
       screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index)));
     } // breaks the code based on the screen size
 
+<<<<<<< HEAD
+=======
+    // yours would add a new feature which breaks the line based off \n does that make sense to you
+    // yea basically we are coding the best possible version of a putString
+    // you cant j copy paste it youll have to integrate it into it // yours matters more because mine wont work unless yours does
+    // just check the logic and even if one word works we are valid // is there any word that only has 1 defintion lol
+    // also we could change the Scraper to only return one def
+    screen.doResizeIfNecessary();
+>>>>>>> 1e82e2ef3e16d50579b6b65062c252d91afdf07f
   screen.doResizeIfNecessary();
 }
 
@@ -89,17 +98,28 @@ public class TerminalDemo {
         }
 
         if (key.getKeyType() == KeyType.Backspace) {
+<<<<<<< HEAD
 
           output = output.substring(0, output.length() - 1);
           screen.refresh();
         }
 
+=======
+          output = output.substring(0, output.length() - 1);
+          screen.refresh();
+        }
+          mode = mode.substring(0, mode.length() - 1);
+>>>>>>> 1e82e2ef3e16d50579b6b65062c252d91afdf07f
           screen.refresh();
 
 
        if ((key.getKeyType() == KeyType.Enter)){
           putString(1,15,screen,"The mode you have requested is: " + mode + ".");
+<<<<<<< HEAD
           SecondEnter =  true;}
+=======
+          SecondEnter =  true;
+>>>>>>> 1e82e2ef3e16d50579b6b65062c252d91afdf07f
 
         if ((key.getKeyType() == KeyType.Enter)){
           putString(1,10,screen,"The word you have inputted is: " + output + ".");
