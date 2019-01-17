@@ -38,6 +38,16 @@ Timothy- Wasn't able to work on anything, studying for 2 tests. <br />
 Vishwaa- Finished developing a GUI screen. Had to switch to using lanterna.
 # January 11th-13th
 Timothy- Added a new scraping method to get synonyms from thesaurus.com. Created a master function that complies all the methods into one. Added comments into code. Met up with Vishwaa and got lanterna working after much trial and error.<br />
-Vishwaa- Developed a usable lanterna screen which takes user input and displays result from Scraper.java. <br >
+Vishwaa- Developed a usable lanterna screen which takes user input and displays result from Scraper.java. <br />
 Ready for Presentations!
+# January 14th
+Timothy- Created a new file to redesign our visual interface. Started integrating the code from old visual into the new file. <br />
+Vishwaa- 
+# January 15th
+Timothy- Wasn't able to work on anything, had to study for 2 finals the next day.<br />
+Vishwaa- 
+# January 16th
+Timothy- Decided to leave Vishwaa to work with lanterna, worked on generating a random word. Encountered problems with the website requiring the user to push buttons to generate the words. <br />
+Vishwaa- 
+
   
