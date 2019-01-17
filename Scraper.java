@@ -7,7 +7,8 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    System.out.println(master(args[0], args[1]));
+    //System.out.println(master(args[0], args[1]));
+    System.out.println(getRandomWord());
   }
 
   //Compiles all the methods into one, taking the place of main
@@ -97,7 +98,23 @@ public class Scraper {
   }
 
   //Removes the html tags from a string
-  public static String html2text(String html) {
+  private static String html2text(String html) {
     return Jsoup.parse(html).text();
+  }
+
+  public static String getRandomWord() throws IOException{
+    try {
+      Document doc;
+      doc = Jsoup.connect("https://htmlstrip.com/random-word-generator/").get();
+
+      Elements div = doc.getElementsByTag("div");
+      Element specificDiv = div.get(16);
+      Elements span = specificDiv.getElementsByTag("span");
+      Element specificSpan = span.get((int) Math.random() * span.size());
+      return html2text(specificSpan.toString());
+    }
+    catch(org.jsoup.HttpStatusException e) {
+      return "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
+    }
   }
 }
