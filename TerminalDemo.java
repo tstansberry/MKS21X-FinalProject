@@ -68,7 +68,6 @@ public class TerminalDemo {
 
       }
 
-      putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY");
       // putString(1,2,screen,""+size.getRows()+" "+size.getColumns()); // for testing
 
       TerminalSize testsize = screen.getTerminalSize();
@@ -76,8 +75,6 @@ public class TerminalDemo {
         screen.clear();
         size = testsize;
       }
-
-      putString(1,7,screen,"Please start typing a word. Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
 
       KeyStroke key = screen.pollInput();
 
@@ -92,44 +89,61 @@ public class TerminalDemo {
           if(millis/1000 > lastSecond){
             lastSecond = millis / 1000;
             putString(1,3,screen,"Seconds since start of program: "+lastSecond);
-            
+
           }
         }
 
         if (mode == 0 && !firstEnterOver){
+
           if (key.getKeyType() == KeyType.Escape){
             checker = false;
           }
 
           if ((key.getKeyType() == KeyType.Character)) {
-            output += key.getCharacter();
+            Strmode += key.getCharacter();
           }
 
           if (key.getKeyType() == KeyType.Backspace) {
 
-            output = output.substring(0, output.length() - 1);
+            Strmode = Strmode.substring(0, Strmode.length() - 1);
             screen.refresh();
           }
 
           screen.refresh();
 
           if ((key.getKeyType() == KeyType.Enter)){
-            putString(1,15,screen,"The mode you have requested is: " + Strmode + ".");
-            SecondEnter =  true;}
-
-            if ((key.getKeyType() == KeyType.Enter)){
-              putString(1,10,screen,"The word you have inputted is: " + output + ".");
-              firstEnterOver = true;
-              key = null;
-            }
+            putString(1,13,screen,"The mode you have requested is: " + Strmode + ".");
+            firstEnterOver = true;
+            //key = null;
           }
-          putString(1,9,screen,output);
+
+            }
+
+          putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY");
+
+          //putString(1,7,screen,"Please start typing a word. Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
+
+          putString(1,5,screen, "There are three different modes:" );
+          putString(1,6,screen, "[1] DICTIONARY" );
+          putString(1,7,screen, "[2] DEFINITION" );
+          putString(1,8,screen, "[3] SYNONYMS" );
+          putString(1,9,screen, "[4] VOCAB TESTING GAME" );
+
+          putString(1,10,screen, "What mode would you like to choose? Please follow the following format: [number]. Press ENTER when done.");
+
+          putString(1,12,screen, Strmode);
+
+        //  putString(1,13,screen, "The mode you have chosen is:" + Strmode);
+
+
+          }
+
           screen.doResizeIfNecessary();
 
           screen.refresh();
         }
 
-        if (firstEnterOver){
+      /*  if (firstEnterOver){
           putString(1,12,screen,"Please choose a mode. The available modes are: (1) defintion and (2) synonym. Input either 1 or 2.");
           putString(1,13,screen,"Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
 
@@ -148,10 +162,9 @@ public class TerminalDemo {
               SecondEnter =  true;
 
             }
-          }
+          } */
 
-          putString(1,14,screen,Strmode);
-        }
+        screen.stopScreen();
       }
 
       /*    if (SecondEnter){
@@ -174,12 +187,12 @@ public class TerminalDemo {
   putString(1,17,screen,"Sorry but the mode you entered is invalid. Click ENTER to reset or ESC to quit.");
 } */
 
-screen.stopScreen();
-}
-
-
 
 }
+
+
+
+
 
 
 //_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
