@@ -14,7 +14,7 @@ import java.io.*;
 public class TerminalDemo {
 
   public static void putString(int x, int y, Screen screen, String str) {
-    for (int i = 0; i < str.length(); ++i) {
+    for (int i = 0; i < str.length(); i++) {
       screen.setCharacter(x+i, y, new TextCharacter(str.charAt(i)));
     }
   }  // changes the row value and allows you to add text throughout the screen
@@ -132,6 +132,8 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
           if ((key.getKeyType() == KeyType.Character)) {
             Strmode += key.getCharacter();
+            String reset = "                                                               ";
+            putString(1,13,screen,reset);
           }
 
         /*  if (key.getKeyType() == KeyType.Backspace) {
@@ -142,9 +144,27 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
           screen.refresh();
 
           if ((key.getKeyType() == KeyType.Enter)){
+
+            String success  =  "The mode you have requested is: " + input + ".";
+            String failure = "Sorry but that is not an available mode. Please try again.";
+            String tester = "";
+            screen.refresh();
+
+            if (Strmode.equals("[1]") || Strmode.equals("[2]") || Strmode.equals("[3]") || Strmode.equals("[4]")){
+            putString(1,13,screen,success);
             firstEnterOver = true;
-            putString(1,12,screen,"The mode you have requested is: " + Strmode + ".");
             //display++;
+            }
+
+            else{
+            putString(1,13,screen,failure);
+            screen.refresh();
+            for (int i = 0; i < Strmode.length(); i++){
+              tester +=  " ";
+            }
+            putString(1,12,screen, tester);
+            Strmode = "";
+            }
           }
 
           }
@@ -164,12 +184,20 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
         screen.refresh();
 
         if ((key.getKeyType() == KeyType.Enter)){
+      /*    if (input.equals(" ")){
           putString(1,13,screen,"The mode you have requested is: " + input + ".");
           firstEnterOver = true;
           display++;
         }
+          else{
+          putString(1,13,screen,"Sorry but that is not an available mode. Please try again.");
+          input = "";
+
+        } */
+          }
 
         }
+
 
         } // input loop ends here
 
@@ -189,21 +217,24 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
           if (!firstEnterOver){
 
-          putString(1,12,screen, Strmode); // shows user what they're typing but goes away after they submit their mode request
-
+          putString(1,12,screen, Strmode); // shows user what they're typing but this is replaced after they submit their mode request a
           }
 
-        }
-          screen.doResizeIfNecessary();
 
-          screen.refresh();
+
+        }
+        screen.doResizeIfNecessary();
+
+        screen.refresh();
 
         }
 
         screen.stopScreen(); // loops comes here if ESC pressed
       }
 
-}
+    }
+
+
 
 //_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 /*  if (firstEnterOver){
