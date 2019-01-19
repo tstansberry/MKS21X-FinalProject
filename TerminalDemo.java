@@ -23,19 +23,19 @@ public class TerminalDemo {
     int checker = x;
     int placeholder = 0;
     for (int index = 0; index < str.length(); index++) {
-      if (str.charAt(index) == '|') {
-        y++;
-        placeholder = 0;
+      if (str.charAt(index) == '|') { // loops through the str and checks for "|"
+        y++; // increases y to put text on new line instead
+        placeholder = 0; // changes placeholder value to 0 because index can't be changed and x needs to keep increasing
       }
-      else if ((x+placeholder) % (screen.getTerminalSize().getColumns()-5) == 0){
-        y ++ ;
-        placeholder = 0;
+      else if ((x+placeholder) % (screen.getTerminalSize().getColumns()-5) == 0){ // compares x value with # of columns in world
+        y ++ ; // if column end reached it goes to a new line
+        placeholder = 0; // changes placeholder value to 0 because index can't be changed and x needs to keep increasing
       }
       else{
-        placeholder++;
+        placeholder++; // if there is no reason to go to a new line the x value moves along
       }
-      screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index)));
-    } // breaks the code based on the screen size
+      screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index))); // adds character from index value of string to given location
+    }
     screen.doResizeIfNecessary();
   }
 
@@ -48,11 +48,12 @@ public class TerminalDemo {
     long temptime = 0;
     long tempend = 0;
     long lastSecond = 0;
-    String output = "";
-    int mode = 0;
+    String input = "";
+    int display = 0;
     boolean checker = true;
     boolean firstEnterOver = false;
     boolean SecondEnter = false;
+    boolean modeGoing = true;
     String Strmode = "";
 
     TerminalSize size = screen.getTerminalSize();
@@ -68,23 +69,39 @@ public class TerminalDemo {
 
       }
 
-      // putString(1,2,screen,""+size.getRows()+" "+size.getColumns()); // for testing
+  // for testing
+  // putString(1,2,screen,""+size.getRows()+" "+size.getColumns());
 
       TerminalSize testsize = screen.getTerminalSize();
       if (testsize.getRows() != size.getRows() || testsize.getColumns() != size.getColumns()) {
         screen.clear();
         size = testsize;
-      }
+      } // resizes world
+/*
+EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
-      KeyStroke key = screen.pollInput();
+    display 0:
+        - is the homepage/ the screen your first open
+        - use will enter the mode they want to use
 
-      if (key != null) {
+    display 1:
+      - takes you to a screen where your mode can be confirmed
+      - asks user for word inputted
 
+   display 3:
+      - shows results based off word and mode inputs
+      - allows user to switch to a different mode with the same word or change word and/or mode
+*/
+
+    KeyStroke key = screen.pollInput();
+    if (key != null) {
+
+      // for all displays
         if (key.getKeyType() == KeyType.ArrowRight) {
-          mode++;
-          mode%=3;//2 modes
+          display++;
+          display%=3;
           screen.clear();
-          tEnd = System.currentTimeMillis();
+        tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
           if(millis/1000 > lastSecond){
             lastSecond = millis / 1000;
@@ -93,106 +110,140 @@ public class TerminalDemo {
           }
         }
 
-        if (mode == 0 && !firstEnterOver){
+        if (key.getKeyType() == KeyType.ArrowLeft) {
+          display--;
+          display%=3;//3 displays
+          screen.clear();
+          tEnd = System.currentTimeMillis();
+          millis = tEnd - tStart;
+         if(millis/1000 > lastSecond){
+            lastSecond = millis / 1000;
+            putString(1,3,screen,"Seconds since start of program: "+lastSecond);
 
-          if (key.getKeyType() == KeyType.Escape){
-            checker = false;
           }
+        }
+
+        if (key.getKeyType() == KeyType.Escape){
+          checker = false;
+        }
+
+      // for display 0
+        if (display == 0){
 
           if ((key.getKeyType() == KeyType.Character)) {
             Strmode += key.getCharacter();
           }
 
-          if (key.getKeyType() == KeyType.Backspace) {
-
+        /*  if (key.getKeyType() == KeyType.Backspace) {
             Strmode = Strmode.substring(0, Strmode.length() - 1);
             screen.refresh();
-          }
+          } */
 
           screen.refresh();
 
           if ((key.getKeyType() == KeyType.Enter)){
-            putString(1,13,screen,"The mode you have requested is: " + Strmode + ".");
             firstEnterOver = true;
-            //key = null;
+            putString(1,12,screen,"The mode you have requested is: " + Strmode + ".");
+            //display++;
           }
 
-            }
+          }
 
-          putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY");
+      // for display 1
+      if (display == 1){
+
+        if ((key.getKeyType() == KeyType.Character)) {
+          input += key.getCharacter();
+        }
+
+      /*  if (key.getKeyType() == KeyType.Backspace) {
+          input = input.substring(0, input.length() - 1);
+          screen.refresh();
+        } */
+
+        screen.refresh();
+
+        if ((key.getKeyType() == KeyType.Enter)){
+          putString(1,13,screen,"The mode you have requested is: " + input + ".");
+          firstEnterOver = true;
+          display++;
+        }
+
+        }
+
+        } // input loop ends here
+
+        if (display == 0){
+          // code for only display 0 (home screen)
+
+         putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY");
 
           //putString(1,7,screen,"Please start typing a word. Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
 
-          putString(1,5,screen, "There are three different modes:" );
-          putString(1,6,screen, "[1] DICTIONARY" );
-          putString(1,7,screen, "[2] DEFINITION" );
-          putString(1,8,screen, "[3] SYNONYMS" );
-          putString(1,9,screen, "[4] VOCAB TESTING GAME" );
-
+          putStringSpecial(1,5,screen, "There are three different modes:" );
+          putStringSpecial(1,6,screen, "[1] DICTIONARY" );
+          putStringSpecial(1,7,screen, "[2] DEFINITION" );
+          putStringSpecial(1,8,screen, "[3] SYNONYMS" );
+          putStringSpecial(1,9,screen, "[4] VOCAB TESTING GAME" );
           putString(1,10,screen, "What mode would you like to choose? Please follow the following format: [number]. Press ENTER when done.");
 
-          putString(1,12,screen, Strmode);
+          if (!firstEnterOver){
 
-        //  putString(1,13,screen, "The mode you have chosen is:" + Strmode);
-
+          putString(1,12,screen, Strmode); // shows user what they're typing but goes away after they submit their mode request
 
           }
 
+        }
           screen.doResizeIfNecessary();
 
           screen.refresh();
+
         }
 
-      /*  if (firstEnterOver){
-          putString(1,12,screen,"Please choose a mode. The available modes are: (1) defintion and (2) synonym. Input either 1 or 2.");
-          putString(1,13,screen,"Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
-
-          if (key != null) {
-            if (key.getKeyType() == KeyType.Escape){
-              checker = false;
-
-            }
-
-            if ((key.getKeyType() == KeyType.Character)) {
-              Strmode += key.getCharacter();
-            }
-
-            if ((key.getKeyType() == KeyType.Enter)){
-              putString(1,15,screen,"The mode you have requested is: " + Strmode + ".");
-              SecondEnter =  true;
-
-            }
-          } */
-
-        screen.stopScreen();
+        screen.stopScreen(); // loops comes here if ESC pressed
       }
-
-      /*    if (SecondEnter){
-      if (mode.equals("1")) {
-      putString(1,17,screen, "Successful Mode Entry!");
-      String result = Scraper.master("definition", output);
-      String lookingFor = "\n";
-      String replaceWith = "|";
-      String newResult = result.replace(lookingFor,replaceWith);
-      screen.doResizeIfNecessary();
-      putStringSpecial(1,19,screen,newResult);
-    }
-    else if (mode.equals("2")) {
-    putString(1,17,screen, "Successful Mode Entry!");
-    String result = Scraper.master("synonyms", output);
-    putStringSpecial(1,19,screen,result);
-    screen.doResizeIfNecessary();
-  }
-  else{
-  putString(1,17,screen,"Sorry but the mode you entered is invalid. Click ENTER to reset or ESC to quit.");
-} */
-
 
 }
 
-
-
-
-
-
 //_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+/*  if (firstEnterOver){
+    putString(1,12,screen,"Please choose a mode. The available modes are: (1) defintion and (2) synonym. Input either 1 or 2.");
+    putString(1,13,screen,"Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
+
+    if (key != null) {
+      if (key.getKeyType() == KeyType.Escape){
+        checker = false;
+
+      }
+
+      if ((key.getKeyType() == KeyType.Character)) {
+        Strmode += key.getCharacter();
+      }
+
+      if ((key.getKeyType() == KeyType.Enter)){
+        putString(1,15,screen,"The mode you have requested is: " + Strmode + ".");
+        SecondEnter =  true;
+
+      }
+    } */
+
+
+/*    if (SecondEnter){
+if (mode.equals("1")) {
+putString(1,17,screen, "Successful Mode Entry!");
+String result = Scraper.master("definition", output);
+String lookingFor = "\n";
+String replaceWith = "|";
+String newResult = result.replace(lookingFor,replaceWith);
+screen.doResizeIfNecessary();
+putStringSpecial(1,19,screen,newResult);
+}
+else if (mode.equals("2")) {
+putString(1,17,screen, "Successful Mode Entry!");
+String result = Scraper.master("synonyms", output);
+putStringSpecial(1,19,screen,result);
+screen.doResizeIfNecessary();
+}
+else{
+putString(1,17,screen,"Sorry but the mode you entered is invalid. Click ENTER to reset or ESC to quit.");
+} */
