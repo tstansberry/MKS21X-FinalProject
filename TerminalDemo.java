@@ -145,25 +145,25 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
           if ((key.getKeyType() == KeyType.Enter)){
 
-            String success  =  "The mode you have requested is: " + input + ".";
-            String failure = "Sorry but that is not an available mode. Please try again.";
-            String tester = "";
+            String success  =  "The mode you have requested is: " + Strmode + "."; // successful input
+            String failure = "Sorry but that is not an available mode. Please try again."; // unsuccessful input
+            String Inputclearer = ""; //
+            for (int i = 0; i < Strmode.length(); i++){
+              Inputclearer +=  " ";
+            }
+            putString(1,12,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
             screen.refresh();
 
-            if (Strmode.equals("[1]") || Strmode.equals("[2]") || Strmode.equals("[3]") || Strmode.equals("[4]")){
+            if (Strmode.equals("[1]") || Strmode.equals("[2]") || Strmode.equals("[3]") || Strmode.equals("[4]")){ //checks if input is valid
             putString(1,13,screen,success);
-            firstEnterOver = true;
+            firstEnterOver = true;  // won't allow user to enter a new input for mode
             //display++;
             }
 
             else{
-            putString(1,13,screen,failure);
+            putString(1,13,screen,failure); // tells user input is invalid
             screen.refresh();
-            for (int i = 0; i < Strmode.length(); i++){
-              tester +=  " ";
-            }
-            putString(1,12,screen, tester);
-            Strmode = "";
+            Strmode = ""; // allows user to reenter a new input
             }
           }
 
