@@ -243,7 +243,6 @@ public static void main(String[] args) throws IOException {
           }
         }
 
-
         if (key.getCharacter().equals(' ')){
           if (SecondEnter){
             display++;
