@@ -174,13 +174,12 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
           if (key.getCharacter().equals(' ')){
             if (firstEnterOver){
-              if (Strmode.equals("[1]")){
                   display = 1;
                   display%=4;
                   screen.clear();
                   }
               }
-            }
+            
 
         }
 
