@@ -132,6 +132,10 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
       // for display 0
         if (display == 0){
 
+          String success  =  "The mode you have requested is: " + Strmode + "."; // successful input
+          String failure = "Sorry but that is not an available mode. Please try again."; // unsuccessful input
+          String Inputclearer = ""; //
+
           if ((key.getKeyType() == KeyType.Character)) {
             if (!firstEnterOver){
             Strmode += key.getCharacter();
@@ -149,9 +153,6 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
           if ((key.getKeyType() == KeyType.Enter)){
 
-            String success  =  "The mode you have requested is: " + Strmode + "."; // successful input
-            String failure = "Sorry but that is not an available mode. Please try again."; // unsuccessful input
-            String Inputclearer = ""; //
             for (int i = 0; i < Strmode.length(); i++){
               Inputclearer +=  " ";
             }
@@ -160,7 +161,7 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
             if (Strmode.equals("[1]") || Strmode.equals("[2]") || Strmode.equals("[3]") || Strmode.equals("[4]")){ //checks if input is valid
             putString(1,13,screen,success);
-            putString(1,14,screen,"Please check mode and press SPACE to proceed. ");
+            putString(1,14,screen,"Please check mode and press SPACE to proceed. You may press TAB to change your mode entry.");
             firstEnterOver = true;
             }
 
@@ -179,7 +180,24 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
                   screen.clear();
                   }
               }
-            
+          if (key.getKeyType() ==  KeyType.Tab){
+              if (firstEnterOver){
+                for (int i = 0; i < success.length(); i++){
+                  Inputclearer +=  " ";
+                }
+                putString(1,13,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
+                Inputclearer = "";
+                for (int i = 0; i < "Please check mode and press SPACE to proceed. You may press TAB to change your mode entry.".length(); i++){
+                  Inputclearer +=  " ";
+                }
+                putString(1,14,screen, Inputclearer);
+                screen.refresh();
+                firstEnterOver = false;
+                Strmode = "";
+
+                      }
+                  }
+
 
         }
 
@@ -198,6 +216,28 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
         screen.refresh();
 
         if ((key.getKeyType() == KeyType.Enter)){
+
+          String success  =  "The word you have requested is: " + input + "."; // successful input
+          String failure = "Sorry but that word not correct. Please try again."; // unsuccessful input
+          String Inputclearer = ""; //
+          for (int i = 0; i < Strmode.length(); i++){
+            Inputclearer +=  " ";
+          }
+          putString(1,12,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
+          screen.refresh();
+
+          if (Strmode.equals("[1]") || Strmode.equals("[2]") || Strmode.equals("[3]") || Strmode.equals("[4]")){ //checks if input is valid
+          putString(1,13,screen,success);
+          putString(1,14,screen,"Please check mode and press SPACE to proceed. ");
+          firstEnterOver = true;
+          }
+
+          else{
+          putString(1,13,screen,failure); // tells user input is invalid
+          screen.refresh();
+          Strmode = ""; // allows user to reenter a new input
+          }
+
       /*    if (input.equals(" ")){
           putString(1,13,screen,"The mode you have requested is: " + input + ".");
           firstEnterOver = true;
@@ -235,9 +275,19 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
           putString(1,12,screen, Strmode); // shows user what they're typing but this is replaced after they submit their mode request a
           }
 
+        }
 
+        if (display == 1){
+          // code for page 1
+
+          putString(1,5,screen,"The mode you have entered is: " + Strmode);
+          putString(1,6,screen,"Please enter the word you'd like to use. Press ENTER when done.");
+          putString(1,8,screen, input);
+
+          putString(1,screen.getTerminalSize().getRows()-3, screen, "Type --main' to return to the homescreen");
 
         }
+
         screen.doResizeIfNecessary();
 
         screen.refresh();
