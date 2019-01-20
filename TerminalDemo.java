@@ -55,6 +55,7 @@ public class TerminalDemo {
     boolean SecondEnter = false;
     boolean modeGoing = true;
     String Strmode = "";
+    String Inputclearer = ""; //
 
     TerminalSize size = screen.getTerminalSize();
     TextGraphics tg = screen.newTextGraphics();
@@ -134,7 +135,6 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
           String success  =  "The mode you have requested is: " + Strmode + "."; // successful input
           String failure = "Sorry but that is not an available mode. Please try again."; // unsuccessful input
-          String Inputclearer = ""; //
 
           if ((key.getKeyType() == KeyType.Character)) {
             if (!firstEnterOver){
@@ -144,10 +144,14 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
           }
         }
 
-        /*  if (key.getKeyType() == KeyType.Backspace) {
-            Strmode = Strmode.substring(0, Strmode.length() - 1);
-            screen.refresh();
-          } */
+         if (key.getKeyType() == KeyType.Backspace) {
+           for (int i = 0; i < Strmode.length(); i++){
+             Inputclearer +=  " ";
+           }
+           putString(1,12,screen,Inputclearer);
+           Strmode = Strmode.substring(0, Strmode.length() - 1);
+           screen.refresh();
+          }
 
           screen.refresh();
 
@@ -208,10 +212,14 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
           input += key.getCharacter();
         }
 
-      /*  if (key.getKeyType() == KeyType.Backspace) {
+        if (key.getKeyType() == KeyType.Backspace) {
+          for (int i = 0; i < input.length(); i++){
+            Inputclearer +=  " ";
+          }
+          putString(1,12,screen,Inputclearer);
           input = input.substring(0, input.length() - 1);
           screen.refresh();
-        } */
+         }
 
         screen.refresh();
 
@@ -219,7 +227,7 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
           String success  =  "The word you have requested is: " + input + "."; // successful input
           String failure = "Sorry but that word not correct. Please try again."; // unsuccessful input
-          String Inputclearer = ""; //
+  
           for (int i = 0; i < Strmode.length(); i++){
             Inputclearer +=  " ";
           }
