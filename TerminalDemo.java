@@ -77,6 +77,8 @@ public class TerminalDemo {
         screen.clear();
         size = testsize;
       } // resizes world
+
+      putString(1,1,screen, "Current Display: " +  display);
 /*
 EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
@@ -94,7 +96,7 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 */
 
     KeyStroke key = screen.pollInput();
-    if (key != null) {
+    if (key != null){
 
       // for all displays
         if (key.getKeyType() == KeyType.ArrowRight) {
@@ -131,10 +133,12 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
         if (display == 0){
 
           if ((key.getKeyType() == KeyType.Character)) {
+            if (!firstEnterOver){
             Strmode += key.getCharacter();
             String reset = "                                                               ";
             putString(1,13,screen,reset);
           }
+        }
 
         /*  if (key.getKeyType() == KeyType.Backspace) {
             Strmode = Strmode.substring(0, Strmode.length() - 1);
@@ -156,8 +160,8 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
             if (Strmode.equals("[1]") || Strmode.equals("[2]") || Strmode.equals("[3]") || Strmode.equals("[4]")){ //checks if input is valid
             putString(1,13,screen,success);
-            firstEnterOver = true;  // won't allow user to enter a new input for mode
-            //display++;
+            putString(1,14,screen,"Please check mode and press SPACE to proceed. ");
+            firstEnterOver = true;
             }
 
             else{
@@ -165,9 +169,20 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
             screen.refresh();
             Strmode = ""; // allows user to reenter a new input
             }
-          }
 
           }
+
+          if (key.getCharacter().equals(' ')){
+            if (firstEnterOver){
+              if (Strmode.equals("[1]")){
+                  display = 1;
+                  display%=4;
+                  screen.clear();
+                  }
+              }
+            }
+
+        }
 
       // for display 1
       if (display == 1){
@@ -200,6 +215,7 @@ EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
 
         } // input loop ends here
+
 
         if (display == 0){
           // code for only display 0 (home screen)
