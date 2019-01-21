@@ -56,6 +56,7 @@ public static void main(String[] args) throws IOException {
   boolean firstEnterOver = false;
   boolean SecondEnter = false;
   boolean modeGoing = true;
+  boolean revert = false;
   String Strmode = "";
   String control = "";
   String Inputclearer = ""; //
@@ -118,7 +119,7 @@ public static void main(String[] args) throws IOException {
 
       if (key.getKeyType() == KeyType.ArrowLeft) {
         display--;
-        display%=6;//3 displays
+        display%=6;//6 displays
         screen.clear();
         tEnd = System.currentTimeMillis();
         millis = tEnd - tStart;
@@ -204,8 +205,6 @@ public static void main(String[] args) throws IOException {
 
           }
         }
-
-
       }
 
       // for display 1
@@ -224,7 +223,7 @@ public static void main(String[] args) throws IOException {
           for (int i = 0; i < input.length(); i++){
             Inputclearer +=  " ";
           }
-          putString(1,12,screen,Inputclearer);
+          putString(1,9,screen,Inputclearer);
           input = input.substring(0, input.length() - 1);
           screen.refresh();
         }
@@ -236,7 +235,17 @@ public static void main(String[] args) throws IOException {
           for (int i = 0; i < input.length(); i++){
             Inputclearer +=  " ";
           }
-          putString(1,8,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
+
+          if (input.equals("--main")){
+            putString(1,9,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
+            screen.refresh();
+            revert = true;
+
+          } // should change back to display 0 but doesnt work
+
+          else {
+
+          putString(1,9,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
           screen.refresh();
 
           SecondEnter = true;
@@ -244,8 +253,17 @@ public static void main(String[] args) throws IOException {
           putString(1,13,screen,success);
           putString(1,14,screen,"Please check mode and press SPACE to proceed. You may press TAB to change your mode entry.");
         }
+      }
+
 
         if (key.getCharacter().equals(' ')){
+
+          if (revert){
+            screen.clear();
+            display = 0;
+            display%=6;
+            screen.clear();
+          }
 
           if (SecondEnter){
             if (Strmode.equals("[1]")){
@@ -277,6 +295,12 @@ public static void main(String[] args) throws IOException {
 
         if (key.getKeyType() ==  KeyType.Tab){
 
+          if (revert){
+
+            revert = false;
+            input = "";
+          }
+
           if (SecondEnter){
             for (int i = 0; i < success.length(); i++){
               Inputclearer +=  " ";
@@ -301,20 +325,20 @@ public static void main(String[] args) throws IOException {
       if (display <= 3){
 
         if ((key.getKeyType() == KeyType.Character)) {
-          //if (!firstEnterOver){
+
           control += key.getCharacter();
-          /*  String reset = "                                                               ";
-          putString(1,13,screen,reset); */
-          //    }
+
         }
 
         if (key.getKeyType() == KeyType.Backspace) {
           for (int i = 0; i < control.length(); i++){
             Inputclearer +=  " ";
           }
+
           putString(1,12,screen,Inputclearer);
           control = control.substring(0, control.length() - 1);
           screen.refresh();
+
         }
 
         screen.refresh();
@@ -334,23 +358,7 @@ public static void main(String[] args) throws IOException {
           display%=6;
           screen.clear();
         }
-      if (key.getKeyType() ==  KeyType.Tab){
-        /*if (firstEnterOver){
-        for (int i = 0; i < success.length(); i++){
-        Inputclearer +=  " ";
-      }
-      putString(1,13,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
-      Inputclearer = "";
-      for (int i = 0; i < "Please check mode and press SPACE to proceed. You may press TAB to change your mode entry.".length(); i++){
-      Inputclearer +=  " ";
-    }
-    putString(1,14,screen, Inputclearer);
-    screen.refresh();
-    firstEnterOver = false;
-    Strmode = "";
 
-  }*/
-}
 }
 
 } // input loop ends here
@@ -384,39 +392,21 @@ if (display == 1){
 
   putString(1,5,screen,"The mode you have entered is: " + Strmode);
   putString(1,6,screen,"Please enter the word you'd like to use. Press ENTER when done.");
-
-  putString(1,screen.getTerminalSize().getRows()-3, screen, "Type --main' to return to the homescreen");
-
-  if (!SecondEnter){
-
-    putString(1,8,screen,input);
-  }
-}
-
-// code for display 2
-if (display == 4){
-
-  putString(1,5,screen,"The mode you have entered is:" + Strmode);
-  putString(1,6,screen,"The word you have entered is:" + input);
-  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
+  //for testing
   //putString(1,17,screen, "Successful Mode Entry!");
-  putString(1,15,screen,control);
-  /*
-  String result = Scraper.master("everything", input);
-  String lookingFor = "\n";
-  String replaceWith = "|";
-  String newResult = result.replace(lookingFor,replaceWith);
-  screen.doResizeIfNecessary();
-  putStringSpecial(1,18,screen,newResult);
-  */
+  putString(1,7,screen, "Type /'--main'/ to return to the homescreen and press ENTER.");
+
+  putString(1,9,screen,input);
 
 }
 
 // code for display 3
+//ISN'T WORKING RIGHT NOW
 if (display == 3){
   putString(1,5,screen,"The mode you have entered is:" + Strmode);
   putString(1,6,screen,"The word you have entered is:" + input);
   putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
+  //for testing
   //putString(1,17,screen, "Successful Mode Entry!");
   putString(1,15,screen,control);
   /*
@@ -431,10 +421,29 @@ if (display == 3){
 }
 
 // code for display 4
+// DEFINITION  MODE
 if (display == 4){
   putString(1,5,screen,"The mode you have entered is:" + Strmode);
   putString(1,6,screen,"The word you have entered is:" + input);
 
+  //for testing
+  //putString(1,17,screen, "Successful Mode Entry!");
+  String result = Scraper.master("defintion", input);
+  String lookingFor = "\n";
+  String replaceWith = "|";
+  String newResult = result.replace(lookingFor,replaceWith);
+  screen.doResizeIfNecessary();
+  putStringSpecial(1,10,screen,newResult);
+
+}
+
+// code for display 5
+// SYNONYMS MODE
+if (display == 5){
+  putString(1,5,screen,"The mode you have entered is:" + Strmode);
+  putString(1,6,screen,"The word you have entered is:" + input);
+
+  //for testing
   //putString(1,17,screen, "Successful Mode Entry!");
   String result = Scraper.master("synonyms", input);
   String lookingFor = "\n";
@@ -445,11 +454,13 @@ if (display == 4){
 
 }
 
-// code for display 5
-if (display == 5){
+// code for display 6
+//NEED GAME CODE TO MAKE THIS WORKING
+if (display == 6){
   putString(1,5,screen,"The mode you have entered is:" + Strmode);
   putString(1,6,screen,"The word you have entered is:" + input);
   putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
+  //for testing
   //putString(1,17,screen, "Successful Mode Entry!");
   putString(1,15,screen,control);
   /*
@@ -475,6 +486,8 @@ screen.stopScreen(); // loops comes here if ESC pressed
 }
 
 //_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+// OLD CODE TO REFER TO CALL ON SCRAPER AND CONNECT THE FILES
+
 /*  if (firstEnterOver){
 putString(1,12,screen,"Please choose a mode. The available modes are: (1) defintion and (2) synonym. Input either 1 or 2.");
 putString(1,13,screen,"Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
