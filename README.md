@@ -43,12 +43,26 @@ Vishwaa- Started developing a usable lanterna screen which takes user input and 
 Timothy- Created a new file to redesign our visual interface. Started integrating the code from old visual into the new file. <br />
 Vishwaa- Finished working on the MVP version of the lanterna screen to display results and inputs. Created a special function which make the idea of putString more flexuible. Used the old terminal display code and started testing modes and integrating them within code. (WAS ABSENT IN CLASS THIS DAY)
 Ready for Presentations! 
+</br>
 # January 15th
-Timothy- Wasn't able to work on anything, had to study for 2 finals the next day.
+Timothy- Wasn't able to work on anything, had to study for 2 finals the next day.</  br>
 Vishwaa- Incorporated Timothy's code from new file and made the new version working with no errors.
 </  br>
 # January 16th
 Timothy- Decided to leave Vishwaa to work with lanterna, worked on generating a random word. Encountered problems with the website requiring the user to push buttons to generate the words. <br />
-Vishwaa- 
+Vishwaa- Did not get to work much on this day because of finals.
+</br>
+# January 17th
+Vishwaa- Got the mode functionality we wanted working.
+</br>
+# January 18th
+Vishwaa- Main screen display built: allows for mode entry. Code combined into TerminalDemo.java.
+</br>
+# January 19th
+Vishwaa- Reorganized code to separate input-directed stuff and normal display stuff and added documentation. Completed transition into display 1 for word input and what the display looks like. Worked on giving users flexibility with their inputs and changing them before proceeding to main output screen. 
+</br>
+# January 20th
+Vishwaa- Finished display 1 and modified input features such as Backspace. Successfully connected word input and mode input on display 0 and 1 into creating an output screen based off inputs. Helped Timothy find tags and IDs and read documentation to help implement the changes to fix broken code in Scraper because of which our defintion part didnt work.  </br>
+NOTE: DICTIONARY.COM CHANGED THEIR HTML AND WE HAD TO FIND RELEVANT TAGS AND IDS TO FIX SCRAPER.JAVA. </br>
 
   
