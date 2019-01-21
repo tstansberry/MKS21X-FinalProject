@@ -41,11 +41,12 @@ Timothy- Added a new scraping method to get synonyms from thesaurus.com. Created
 Vishwaa- Started developing a usable lanterna screen which takes user input and displays result from Scraper.java. This is an inital version for demos, which will be expanded upon afterwards. <br />
 # January 14th
 Timothy- Created a new file to redesign our visual interface. Started integrating the code from old visual into the new file. <br />
-Vishwaa- Finished working on the MVP version of the lanterna screen to display results and inputs. Created a special function which make the idea of putString more flexuible. Used the old terminal display code and started testing modes and integrating them within code.
-Ready for Presentations!
+Vishwaa- Finished working on the MVP version of the lanterna screen to display results and inputs. Created a special function which make the idea of putString more flexuible. Used the old terminal display code and started testing modes and integrating them within code. (WAS ABSENT IN CLASS THIS DAY)
+Ready for Presentations! 
 # January 15th
-Timothy- Wasn't able to work on anything, had to study for 2 finals the next day.<br />
-Vishwaa- 
+Timothy- Wasn't able to work on anything, had to study for 2 finals the next day.
+Vishwaa- Incorporated Timothy's code from new file and made the new version working with no errors.
+</  br>
 # January 16th
 Timothy- Decided to leave Vishwaa to work with lanterna, worked on generating a random word. Encountered problems with the website requiring the user to push buttons to generate the words. <br />
 Vishwaa- 
