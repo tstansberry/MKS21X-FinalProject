@@ -64,7 +64,7 @@ public static void main(String[] args) throws IOException {
   TerminalSize size = screen.getTerminalSize();
   TextGraphics tg = screen.newTextGraphics();
 
-  while (checker) {
+  while (checker) { // runs while ESC isn't pressed
 
     long tEnd = System.currentTimeMillis();
     long millis = tEnd - tStart;
@@ -72,7 +72,7 @@ public static void main(String[] args) throws IOException {
       lastSecond = millis / 1000;
       putString(1,3,screen,"Seconds since start of program: "+lastSecond);
 
-    }
+    } // shows how long system has been running
 
     // for testing
     // putString(1,2,screen,""+size.getRows()+" "+size.getColumns());
@@ -83,7 +83,9 @@ public static void main(String[] args) throws IOException {
       size = testsize;
     } // resizes world
 
+    // for testing (allows you to see if displays are changing or not)
     putString(1,1,screen, "Current Display: " +  display);
+
     /*
     EXPLANATION AND REFERENCE ON DISPLAYS AND HOW THEY SHOULD FUNCTION
 
@@ -98,15 +100,16 @@ public static void main(String[] args) throws IOException {
     display 3:
     - shows results based off word and mode inputs
     - allows user to switch to a different mode with the same word or change word and/or mode
+
     */
 
     KeyStroke key = screen.pollInput();
-    if (key != null){
+    if (key != null){ // key can never be set to null
 
       // for all displays
       if (key.getKeyType() == KeyType.ArrowRight) {
         display++;
-        display%=6;
+        display%=6;//6 displays -- last display loops around to first
         screen.clear();
         tEnd = System.currentTimeMillis();
         millis = tEnd - tStart;
@@ -115,11 +118,11 @@ public static void main(String[] args) throws IOException {
           putString(1,3,screen,"Seconds since start of program: "+lastSecond);
 
         }
-      }
+      } // allows user to move up between displays; might want to remove this part based off displays interact
 
       if (key.getKeyType() == KeyType.ArrowLeft) {
         display--;
-        display%=6;//6 displays
+        display%=6;//6 displays -- last display loops around to first
         screen.clear();
         tEnd = System.currentTimeMillis();
         millis = tEnd - tStart;
@@ -128,13 +131,14 @@ public static void main(String[] args) throws IOException {
           putString(1,3,screen,"Seconds since start of program: "+lastSecond);
 
         }
-      }
+      } // allows user to move down between displays; might want to remove this part based off displays interact
+
 
       if (key.getKeyType() == KeyType.Escape){
         checker = false;
       }
 
-      // for display 0
+      // Inputs for display 0
       if (display == 0){
 
         String success  =  "The mode you have requested is: " + Strmode + "."; // successful input
@@ -142,19 +146,19 @@ public static void main(String[] args) throws IOException {
 
         if ((key.getKeyType() == KeyType.Character)) {
           if (!firstEnterOver){
-            Strmode += key.getCharacter();
+            Strmode += key.getCharacter(); // adds charater to string as long as enter isn't pressed
             String reset = "                                                               ";
-            putString(1,13,screen,reset);
+            putString(1,13,screen,reset); //helps clear input
           }
         }
 
         if (key.getKeyType() == KeyType.Backspace) {
           for (int i = 0; i < Strmode.length(); i++){
-            Inputclearer +=  " ";
+            Inputclearer +=  " "; // looks at how long Strmode is and clears it from screen
           }
-          putString(1,12,screen,Inputclearer);
-          Strmode = Strmode.substring(0, Strmode.length() - 1);
-          screen.refresh();
+          putString(1,12,screen,Inputclearer); // white space of the length of Strmode
+          Strmode = Strmode.substring(0, Strmode.length() - 1); //takes away last index
+          screen.refresh();// putString later in the code displays updated Strmode
         }
 
         screen.refresh();
@@ -163,12 +167,13 @@ public static void main(String[] args) throws IOException {
 
           for (int i = 0; i < Strmode.length(); i++){
             Inputclearer +=  " ";
-          }
+          } // gets rid of putString that displays Strmode
+
           putString(1,12,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
           screen.refresh();
 
           if (Strmode.equals("[1]") || Strmode.equals("[2]") || Strmode.equals("[3]") || Strmode.equals("[4]")){ //checks if input is valid
-            putString(1,13,screen,success);
+            putString(1,13,screen,success); // tells user input was valid
             putString(1,14,screen,"Please check mode and press SPACE to proceed. You may press TAB to change your mode entry.");
             firstEnterOver = true;
           }
@@ -182,8 +187,8 @@ public static void main(String[] args) throws IOException {
         }
 
         if (key.getCharacter().equals(' ')){
-          if (firstEnterOver){
-            display = 1;
+          if (firstEnterOver){ // this input only matters if ENTER was pressed first
+            display = 1; // moves to next display
             display%=6;
             screen.clear();
           }
@@ -192,22 +197,22 @@ public static void main(String[] args) throws IOException {
           if (firstEnterOver){
             for (int i = 0; i < success.length(); i++){
               Inputclearer +=  " ";
-            }
+            } // takes away the success message
             putString(1,13,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
             Inputclearer = "";
             for (int i = 0; i < "Please check mode and press SPACE to proceed. You may press TAB to change your mode entry.".length(); i++){
               Inputclearer +=  " ";
-            }
-            putString(1,14,screen, Inputclearer);
+            } //clears the message user sees after pressing ENTER
+            putString(1,14,screen, Inputclearer); // takes away the message
             screen.refresh();
-            firstEnterOver = false;
-            Strmode = "";
+            firstEnterOver = false; //makes firstEnterOver false so user can make a new mode input
+            Strmode = ""; // allows user to restart mode input
 
           }
         }
       }
 
-      // for display 1
+      // Inputs for display 0
       if (display == 1){
 
         String success  =  "The word you have requested is: " + input + "."; // successful input
@@ -216,16 +221,16 @@ public static void main(String[] args) throws IOException {
         if ((key.getKeyType() == KeyType.Character)) {
           if (!SecondEnter){
             input += key.getCharacter();
-          }
+          } // adds characters until ENTER is pressed on this display
         }
 
         if (key.getKeyType() == KeyType.Backspace) {
           for (int i = 0; i < input.length(); i++){
             Inputclearer +=  " ";
-          }
+          } //clears input putString
           putString(1,9,screen,Inputclearer);
-          input = input.substring(0, input.length() - 1);
-          screen.refresh();
+          input = input.substring(0, input.length() - 1); //takes one index away from the String
+          screen.refresh(); // putString later will update the input being displayed
         }
 
         screen.refresh();
@@ -234,12 +239,12 @@ public static void main(String[] args) throws IOException {
 
           for (int i = 0; i < input.length(); i++){
             Inputclearer +=  " ";
-          }
+          } //clears input being displayed on screen
 
-          if (input.equals("--main")){
+          if (input.equals("--main")){ //checks if input is --main
             putString(1,9,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
             screen.refresh();
-            revert = true;
+            revert = true; // sets up loop for going back one
 
           } // should change back to display 0 but doesnt work
 
@@ -250,8 +255,8 @@ public static void main(String[] args) throws IOException {
 
           SecondEnter = true;
 
-          putString(1,13,screen,success);
-          putString(1,14,screen,"Please check mode and press SPACE to proceed. You may press TAB to change your mode entry.");
+          putString(1,13,screen,success); // shows input
+          putString(1,14,screen,"Please check mode and press SPACE to proceed. You may press TAB to change your mode entry."); //guides user
         }
       }
 
@@ -265,7 +270,7 @@ public static void main(String[] args) throws IOException {
             screen.clear();
           }
 
-          if (SecondEnter){
+          if (SecondEnter){ //changes display based off mode entry
             if (Strmode.equals("[1]")){
               display = 3;
               display%=6;
@@ -313,7 +318,7 @@ public static void main(String[] args) throws IOException {
             putString(1,14,screen, Inputclearer);
             screen.refresh();
             SecondEnter = false;
-            input = "";
+            input = ""; //allows user to input a new word
 
           }
 
@@ -321,21 +326,21 @@ public static void main(String[] args) throws IOException {
 
       } // display 1 ends
 
-      // for display 2
+      // for display greater than 3
       if (display <= 3){
 
         if ((key.getKeyType() == KeyType.Character)) {
 
-          control += key.getCharacter();
+          control += key.getCharacter(); //adds to control
 
         }
 
         if (key.getKeyType() == KeyType.Backspace) {
           for (int i = 0; i < control.length(); i++){
-            Inputclearer +=  " ";
+            Inputclearer +=  " "; // adds white space of the length of control
           }
 
-          putString(1,12,screen,Inputclearer);
+          putString(1,12,screen,Inputclearer);// clears the control being displayed
           control = control.substring(0, control.length() - 1);
           screen.refresh();
 
@@ -394,7 +399,7 @@ if (display == 1){
   putString(1,6,screen,"Please enter the word you'd like to use. Press ENTER when done.");
   //for testing
   //putString(1,17,screen, "Successful Mode Entry!");
-  putString(1,7,screen, "Type /'--main'/ to return to the homescreen and press ENTER.");
+  putString(1,7,screen, "Type /'--main'/ to return to the homescreen and press ENTER."); //supposed to bring you back to main menu
 
   putString(1,9,screen,input);
 
@@ -402,10 +407,12 @@ if (display == 1){
 
 // code for display 3
 //ISN'T WORKING RIGHT NOW
+//SUPPOSED TO BE DICTIONARY MODE
+
 if (display == 3){
   putString(1,5,screen,"The mode you have entered is:" + Strmode);
   putString(1,6,screen,"The word you have entered is:" + input);
-  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
+  putString(1,7,screen,"Type --controls to see your options on how to proceed"); // if input for control was --control it would show all controls
   //for testing
   //putString(1,17,screen, "Successful Mode Entry!");
   putString(1,15,screen,control);
@@ -431,7 +438,7 @@ if (display == 4){
   String result = Scraper.master("defintion", input);
   String lookingFor = "\n";
   String replaceWith = "|";
-  String newResult = result.replace(lookingFor,replaceWith);
+  String newResult = result.replace(lookingFor,replaceWith); //allows for putStringSpecial
   screen.doResizeIfNecessary();
   putStringSpecial(1,10,screen,newResult);
 
