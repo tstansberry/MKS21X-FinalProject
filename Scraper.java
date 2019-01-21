@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Random;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -7,8 +8,8 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    //System.out.println(master(args[0], args[1]));
-    System.out.println(getRandomWord());
+    System.out.println(getDefinition("help", 0));
+    //System.out.println(getRandomWord());
   }
 
   //Compiles all the methods into one, taking the place of main
@@ -27,11 +28,15 @@ public class Scraper {
     try {
       Document doc;
       doc = Jsoup.connect("https://www.dictionary.com/browse/" + word.toLowerCase()).get();
+      Elements els = doc.getElementsByClass("e1q3nk1v4");
+      return html2text(els.get(definitionNumber).toString());
+      /*
       Elements ol = doc.getElementsByTag("ol");
       Element targetInfo = ol.get(0);
       Elements li = targetInfo.getElementsByTag("li");
       boolean found = false;
       Element clutteredDefinition = null;
+      return li.toString();
 
       for (int x = 0; x < li.size() && ! found; x ++) {
         clutteredDefinition = li.get(x);
@@ -39,12 +44,13 @@ public class Scraper {
       }
       if (! found) throw new IndexOutOfBoundsException();
       return clutteredDefinition.wholeText().toString();
+      */
     }
     catch(IndexOutOfBoundsException e) {
-      return error;
+      return "1 " + error;
     }
     catch(org.jsoup.HttpStatusException e) {
-      return error;
+      return "2 " + error;
     }
   }
 
@@ -110,7 +116,9 @@ public class Scraper {
       Elements div = doc.getElementsByTag("div");
       Element specificDiv = div.get(16);
       Elements span = specificDiv.getElementsByTag("span");
-      Element specificSpan = span.get((int) Math.random() * span.size());
+      Random rand = new Random();
+      int n = rand.nextInt(span.size());
+      Element specificSpan = span.get(n);
       return html2text(specificSpan.toString());
     }
     catch(org.jsoup.HttpStatusException e) {
