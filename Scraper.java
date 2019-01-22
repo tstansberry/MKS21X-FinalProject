@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    System.out.println(getDefinition("help"));
+    System.out.println(getDefinition(args[0]));
     //System.out.println(getRandomWord());
   }
 
@@ -33,7 +33,6 @@ public class Scraper {
       String output = "";
       for (int x = 0; x < div.size(); x ++) {
         if (checkValueTag(div.get(x), value)) {
-          System.out.println("Yes it works");
           output += (value) + ". " + html2text(div.get(x).toString()) + "\n";
           value ++;
         }
@@ -110,7 +109,6 @@ public class Scraper {
     String htmlString = html.toString();
     if (! htmlString.substring(5, 10).equals("value")) return false;
     if (! findTarget(htmlString).equals(target + "")) return false;
-    System.out.println("True");
     return true;
   }
 
