@@ -1,11 +1,11 @@
 import java.io.IOException;
 
-public class MatchingGame{
+public class matchingGame{
   public String[] wordBank;
   public String[] answers;
 
   public static void main(String[] args) throws IOException{
-    MatchingGame game = new MatchingGame(10);
+    matchingGame game = new matchingGame(10);
     for (int x = 0; x < 10; x ++) {
       System.out.println(game.wordBank[x]);
     }
@@ -13,7 +13,7 @@ public class MatchingGame{
     System.out.println("Definition: " + game.answers[1]);
   }
 
-  public MatchingGame(int length) throws IOException{
+  public matchingGame(int length) throws IOException{
     generateWords(length);
     generateAnswers();
   }
