@@ -28,12 +28,14 @@ public class Scraper {
     try {
       Document doc;
       doc = Jsoup.connect("https://www.dictionary.com/browse/" + word.toLowerCase()).get();
-      Elements els = doc.getElementsByClass("e1q3nk1v4");
-      //return html2text(els.get(definitionNumber).toString());
+      Elements div = doc.getElementsByTag("div");
+      int value = 1;
       String output = "";
-      for (int x = 0; x < els.size(); x ++) {
-        String current = html2text(els.get(x).toString());
-        output += (x + 1) + ". " + current + "\n";
+      for (int x = 0; x < div.size(); x ++) {
+        if (checkValueTag(div.get(x), value)) {
+          value ++;
+          output += html2text(div.get(x).toString()) + "\n";
+        }
       }
       return output;
       //Old code, before the html on dictionary.com was changed
@@ -105,10 +107,22 @@ public class Scraper {
   private static boolean checkValueTag(Element html, int target) {
     target ++;
     String htmlString = html.toString();
-    if (! htmlString.substring(4, 9).equals("value")) return false;
-    char targetChar = (char)(target + '0');
-    if (targetChar != htmlString.charAt(11)) return false;
+    if (! htmlString.substring(5, 10).equals("value")) return false;
+    if (findTarget(htmlString).equals(target + "")) return false;
     return true;
+  }
+
+  public static String findTarget(String html) {
+    String output = "";
+    boolean parse = false;
+    for (int x = 0; x < html.length(); x ++) {
+      if (html.charAt(x) == '\"') {
+        parse = ! parse;
+        x ++;
+      }
+      if (parse) output += html.charAt(x);
+    }
+    return output;
   }
 
   //Removes the html tags from a string
