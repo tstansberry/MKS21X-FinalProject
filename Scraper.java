@@ -33,8 +33,9 @@ public class Scraper {
       String output = "";
       for (int x = 0; x < div.size(); x ++) {
         if (checkValueTag(div.get(x), value)) {
+          System.out.println("Yes it works");
+          output += (value) + ". " + html2text(div.get(x).toString()) + "\n";
           value ++;
-          output += html2text(div.get(x).toString()) + "\n";
         }
       }
       return output;
@@ -108,19 +109,20 @@ public class Scraper {
     target ++;
     String htmlString = html.toString();
     if (! htmlString.substring(5, 10).equals("value")) return false;
-    if (findTarget(htmlString).equals(target + "")) return false;
+    if (! findTarget(htmlString).equals(target + "")) return false;
+    System.out.println("True");
     return true;
   }
 
   public static String findTarget(String html) {
     String output = "";
-    boolean parse = false;
-    for (int x = 0; x < html.length(); x ++) {
-      if (html.charAt(x) == '\"') {
-        parse = ! parse;
-        x ++;
+    int start = html.indexOf("\"");
+    boolean finished  = false;
+    for (int x = start + 1; ! finished; x ++) {
+      if (html.charAt(x) == '\"') finished = true;
+      else {
+        output += html.charAt(x);
       }
-      if (parse) output += html.charAt(x);
     }
     return output;
   }
