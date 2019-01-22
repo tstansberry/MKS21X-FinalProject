@@ -53,7 +53,7 @@ Timothy- Decided to leave Vishwaa to work with lanterna, worked on generating a 
 Vishwaa- Did not get to work much on this day because of finals.
 </br>
 # January 17th
-Timothy- Continued search for a random word sight, scoured through various websites trying to find one that actually generated words when you loaded the page (placing them in the html).</br>
+Timothy- Continued search for a random word sight, scoured through various websites (and their html) trying to find one that actually generated words when you loaded the page (placing them in the html).</br>
 Vishwaa- Got the mode functionality we wanted working.
 </br>
 # January 18th
