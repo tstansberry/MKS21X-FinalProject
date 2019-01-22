@@ -28,6 +28,6 @@ public class MatchingGame{
   private void generateAnswers() throws IOException{
     answers = new String[2];
     answers[0] = Scraper.getRandomWord();
-    answers[1] = Scraper.getDefinition(answers[0], 0);
+    answers[1] = Scraper.getDefinition(answers[0]);
   }
 }
