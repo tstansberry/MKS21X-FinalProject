@@ -53,16 +53,21 @@ Timothy- Decided to leave Vishwaa to work with lanterna, worked on generating a 
 Vishwaa- Did not get to work much on this day because of finals.
 </br>
 # January 17th
+Timothy- Continued search for a random word sight, scoured through various websites (and their html) trying to find one that actually generated words when you loaded the page (placing them in the html).</br>
 Vishwaa- Got the mode functionality we wanted working.
 </br>
 # January 18th
+Timothy- Finally found random site and finished up random code, started working on the code for the game.</br>
 Vishwaa- Main screen display built: allows for mode entry. Code combined into TerminalDemo.java.
 </br>
 # January 19th
+Timothy- Continued working on the game, but realized that there is an issue with our definition scraper. Nothing has been changed, so I'm not sure what's wrong. I might have to switch the scraper to a different dictionary site. </br>
 Vishwaa- Reorganized code to separate input-directed stuff and normal display stuff and added documentation. Completed transition into display 1 for word input and what the display looks like. Worked on giving users flexibility with their inputs and changing them before proceeding to main output screen. 
 </br>
 # January 20th
+Timothy- Spent time trying to figure out what was wrong, discovered that dictionary.com actually changed their html format.</br>
 Vishwaa- Finished display 1 and modified input features such as Backspace. Successfully connected word input and mode input on display 0 and 1 into creating an output screen based off inputs. Helped Timothy find tags and IDs and read documentation to help implement the changes to fix broken code in Scraper because of which our defintion part didnt work.  </br>
 NOTE: DICTIONARY.COM CHANGED THEIR HTML AND WE HAD TO FIND RELEVANT TAGS AND IDS TO FIX SCRAPER.JAVA. </br>
 
-  
+# January 21st
+Timothy- Finally was able to figure out how to get the definitions we need with the new html format, finalized game code.

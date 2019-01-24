@@ -8,6 +8,7 @@ public class MatchingGame{
   private int size;
   private ArrayList<String> answers;
 
+
   public static void main(String[] args) throws IOException{
     MatchingGame game = new MatchingGame(10);
     for (int x = 0; x < 10; x ++) {
