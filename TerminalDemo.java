@@ -65,7 +65,9 @@ public static void main(String[] args) throws IOException {
   String Strmode = "";
   String control = "";
   String Inputclearer = ""; //
+  putStringSpecial(1,3,screen, "Loading Program...");
   MatchingGame game = new MatchingGame(10);
+  //screen.refresh();
 
   TerminalSize size = screen.getTerminalSize();
   TextGraphics tg = screen.newTextGraphics();
