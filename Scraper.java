@@ -29,11 +29,11 @@ public class Scraper {
       Document doc;
       doc = Jsoup.connect("https://www.dictionary.com/browse/" + word.toLowerCase()).get();
       Elements div = doc.getElementsByTag("div");
-      int value = 1;
+      int value = 0;
       String output = "";
       for (int x = 0; x < div.size(); x ++) {
         if (checkValueTag(div.get(x), value)) {
-          output += (value) + ". " + html2text(div.get(x).toString()) + "\n";
+          output += (value + 1) + ". " + html2text(div.get(x).toString()) + "\n";
           value ++;
         }
       }
