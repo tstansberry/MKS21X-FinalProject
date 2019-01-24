@@ -39,6 +39,13 @@ public class TerminalDemo {
     screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index))); // adds character from index value of string to given location
   }
   screen.doResizeIfNecessary();
+
+  TerminalSize testsize = screen.getTerminalSize();
+  TerminalSize size = screen.getTerminalSize();
+  if (testsize.getRows() != size.getRows() || testsize.getColumns() != size.getColumns()) {
+    screen.clear();
+    size = testsize;
+  }
 }
 
 public static void main(String[] args) throws IOException {
@@ -438,7 +445,7 @@ public static void main(String[] args) throws IOException {
 
     //for testing
     //putString(1,17,screen, "Successful Mode Entry!");
-    String result = Scraper.master("defintion", input);
+    String result = Scraper.master("definition", input);
     String lookingFor = "\n";
     String replaceWith = "|";
     String newResult = result.replace(lookingFor,replaceWith); //allows for putStringSpecial
@@ -466,7 +473,7 @@ public static void main(String[] args) throws IOException {
 
   // code for display 6
   //NEED GAME CODE TO MAKE THIS WORKING
-  if (display == 6){
+/*  if (display == 6){
     putString(1,5,screen,"The mode you have entered is:" + Strmode);
     putString(1,6,screen,"The word you have entered is:" + input);
     putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
@@ -487,9 +494,10 @@ public static void main(String[] args) throws IOException {
     String newResult = result.replace(lookingFor,replaceWith);
     screen.doResizeIfNecessary();
     putStringSpecial(1,18,screen,newResult);
-    */
 
   }
+    */
+
 
   screen.doResizeIfNecessary();
 
