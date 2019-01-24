@@ -31,7 +31,7 @@ public class Scraper {
       Elements div = doc.getElementsByTag("div");
       int value = 0;
       String output = "";
-      for (int x = 0; x < div.size(); x ++) {
+      for (int x = 0; x < div.size() && value < 5; x ++) {
         if (checkValueTag(div.get(x), value)) {
           output += (value + 1) + ". " + html2text(div.get(x).toString()) + "\n";
           value ++;
