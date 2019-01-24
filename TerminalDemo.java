@@ -47,6 +47,9 @@ public class TerminalDemo {
 
 public static void main(String[] args) throws IOException {
 
+  System.out.println("Loading program...");
+  MatchingGame game = new MatchingGame(10);
+
   Screen screen = new DefaultTerminalFactory().createScreen();
   screen.startScreen(); // display and creation of screen
 
@@ -64,8 +67,6 @@ public static void main(String[] args) throws IOException {
   String Strmode = "";
   String control = "";
   String Inputclearer = ""; //
-  putStringSpecial(1,3,screen, "Loading Program...");
-  MatchingGame game = new MatchingGame(10);
   //screen.refresh();
 
   TerminalSize size = screen.getTerminalSize();
