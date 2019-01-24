@@ -64,6 +64,9 @@ public static void main(String[] args) throws IOException {
   String Strmode = "";
   String control = "";
   String Inputclearer = ""; //
+  putStringSpecial(1,3,screen, "Loading Program...");
+  MatchingGame game = new MatchingGame(10);
+  //screen.refresh();
 
   TerminalSize size = screen.getTerminalSize();
   TextGraphics tg = screen.newTextGraphics();
@@ -194,7 +197,7 @@ public static void main(String[] args) throws IOException {
         if (firstEnterOver){ // this input only matters if ENTER was pressed first
           if (Strmode.equals("[4]")) {
             display = 6;
-            //display%=7;
+            display%=7;
           }
           else {
             display = 1; // moves to next display
@@ -483,8 +486,6 @@ public static void main(String[] args) throws IOException {
   putString(1,5,screen,"The mode you have entered is:" + Strmode);
   putString(1,6,screen,"The word you have entered is:" + input);
 //  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
-  putString(1, 9,screen, "Generating game...");
-  MatchingGame game = new MatchingGame(10);
   screen.refresh();
   putString(1, 9, screen, "Word Bank:");
   String lookingFor = "___\"";
