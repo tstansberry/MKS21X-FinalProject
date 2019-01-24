@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 
 public class Scraper {
   public static void main(String args[]) throws IOException {
-    System.out.println(getDefinition(args[0]));
+    System.out.println(master(args[0], args[1]));
     //System.out.println(getRandomWord());
   }
 
