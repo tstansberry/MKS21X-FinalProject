@@ -39,7 +39,6 @@ public class TerminalDemo {
       placeholder++; // if there is no reason to go to a new line the x value moves along
       screen.doResizeIfNecessary();
       }
-
     screen.setCharacter(x+placeholder, y, new TextCharacter(replacement.charAt(index))); // adds character from index value of string to given location
   }
   screen.doResizeIfNecessary();
@@ -114,7 +113,7 @@ public static void main(String[] args) throws IOException {
     // for all displays
     if (key.getKeyType() == KeyType.ArrowRight) {
       display++;
-      display%=6;//6 displays -- last display loops around to first
+      display%=7;//6 displays -- last display loops around to first
       screen.clear();
       tEnd = System.currentTimeMillis();
       millis = tEnd - tStart;
@@ -127,7 +126,7 @@ public static void main(String[] args) throws IOException {
 
     if (key.getKeyType() == KeyType.ArrowLeft) {
       display--;
-      display%=6;//6 displays -- last display loops around to first
+      display%=7;//6 displays -- last display loops around to first
       screen.clear();
       tEnd = System.currentTimeMillis();
       millis = tEnd - tStart;
@@ -195,11 +194,11 @@ public static void main(String[] args) throws IOException {
         if (firstEnterOver){ // this input only matters if ENTER was pressed first
           if (Strmode.equals("[4]")) {
             display = 6;
-            //display%=6;
+            //display%=7;
           }
           else {
             display = 1; // moves to next display
-            display%=6;
+            display%=7;
           }
           screen.clear();
         }
@@ -277,32 +276,32 @@ public static void main(String[] args) throws IOException {
         if (revert){
           screen.clear();
           display = 0;
-          display%=6;
+          display%=7;
           screen.clear();
         }
 
         if (SecondEnter){ //changes display based off mode entry
           if (Strmode.equals("[1]")){
-            display = 3;
-            display%=6;
+            display = 7;
+            display%=7;
             screen.clear();
           }
 
           if (Strmode.equals("[2]")){
             display = 4;
-            display%=6;
+            display%=7;
             screen.clear();
           }
 
           if (Strmode.equals("[3]")){
             display = 5;
-            display%=6;
+            display%=7;
             screen.clear();
           }
 
           if (Strmode.equals("[4]")){
             display = 6;
-            display%=6;
+            display%=7;
             screen.clear();
           }
 
@@ -371,7 +370,7 @@ public static void main(String[] args) throws IOException {
 
       if (key.getCharacter().equals(' ')){
         display = 1;
-        display%=6;
+        display%=7;
         screen.clear();
       }
 
@@ -420,22 +419,25 @@ public static void main(String[] args) throws IOException {
   //ISN'T WORKING RIGHT NOW
   //SUPPOSED TO BE DICTIONARY MODE
 
-  if (display == 3){
+  if (display == 3 || display == 7){
     putString(1,5,screen,"The mode you have entered is:" + Strmode);
     putString(1,6,screen,"The word you have entered is:" + input);
     //putString(1,7,screen,"Type --controls to see your options on how to proceed"); // if input for control was --control it would show all controls
     //for testing
-    //putString(1,17,screen, "Successful Mode Entry!");
-    //putString(1,15,screen,control);
-    /*
-    String result = Scraper.master("everything", input);
-    String lookingFor = "\n";
-    String replaceWith = "|";
-    String newResult = result.replace(lookingFor,replaceWith);
-    screen.doResizeIfNecessary();
-    putStringSpecial(1,18,screen,newResult);
-    */
 
+    //putString(1,17,screen, "Successful Mode Entry!");
+    String result = Scraper.getSampleDefinition(input);
+    String lookingFor = "___\"";
+    String replaceWith = " |";
+    putString(1,10,screen,"Definitions:");
+    putString(1,30,screen,"Definitions:");
+    String newResult = result.replace(lookingFor,replaceWith); //allows for putStringSpecial
+    screen.doResizeIfNecessary();
+    putStringSpecial(1,12,screen,newResult);
+
+    String resultTwo = Scraper.master("synonyms", input);
+    screen.doResizeIfNecessary();
+    putStringSpecial(1,32,screen,resultTwo);
   }
 
   // code for display 4

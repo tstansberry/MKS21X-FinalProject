@@ -33,7 +33,7 @@ public class Scraper {
       String output = "";
       for (int x = 0; x < div.size(); x ++) {
         if (checkValueTag(div.get(x), value)) {
-          output += (value + 1) + "." + html2text(div.get(x).toString()) + "_\"";
+          output += (value + 1) + "." + html2text(div.get(x).toString()) + "___\"";
           value ++;
         }
       }
@@ -62,6 +62,32 @@ public class Scraper {
       return "2 " + error;
     }
   }
+
+
+  public static String getSampleDefinition(String word) throws IOException {
+    String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
+    try {
+      Document doc;
+      doc = Jsoup.connect("https://www.dictionary.com/browse/" + word.toLowerCase()).get();
+      Elements div = doc.getElementsByTag("div");
+      int value = 0;
+      String output = "";
+      for (int x = 0; x < div.size() && value < 6; x ++) {
+        if (checkValueTag(div.get(x), value)) {
+          output += (value + 1) + "." + html2text(div.get(x).toString()) + "___\"";
+          value ++;
+        }
+      }
+      return output;
+    }
+    catch(IndexOutOfBoundsException e) {
+      return "1 " + error;
+    }
+    catch(org.jsoup.HttpStatusException e) {
+      return "2 " + error;
+    }
+  }
+
 
   //Using the previous method, gets all the definitions for a word
   /*
