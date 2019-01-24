@@ -15,7 +15,7 @@ public class Scraper {
   //Compiles all the methods into one, taking the place of main
   public static String master(String returnType, String word) throws IOException{
     String error = "Uh oh, something went wrong. Please make your inputs are formatted correctly: \"<return type> + <word>\"";
-    if (returnType.equals("definition")) return "\"" + getDefinition(word) + "\"";//return getDefinition(word, 0);
+    if (returnType.equals("definition")) return getDefinition(word) ;//return getDefinition(word, 0);
     else if (returnType.equals("synonyms")) return getSynonyms(word);
     else {
       return error;
@@ -31,9 +31,9 @@ public class Scraper {
       Elements div = doc.getElementsByTag("div");
       int value = 0;
       String output = "";
-      for (int x = 0; x < div.size() && value < 1; x ++) {
+      for (int x = 0; x < div.size(); x ++) {
         if (checkValueTag(div.get(x), value)) {
-          output += (value + 1) + ". " + html2text(div.get(x).toString()) + "\n";
+          output += (value + 1) + ". \"" + html2text(div.get(x).toString()) + "-\"";
           value ++;
         }
       }

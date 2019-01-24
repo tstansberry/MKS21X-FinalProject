@@ -24,29 +24,27 @@ public class TerminalDemo {
     int placeholder = 0;
     String replacement = str;
     for (int index = 0; index < str.length(); index++) {
-      if (str.charAt(index) == '|') { // loops through the str and checks for "|"
+      if (str.charAt(index) == '_') { // loops through the str and checks for "|"
       y++; // increases y to put text on new line instead
       placeholder = 0; // changes placeholder value to 0 because index can't be changed and x needs to keep increasing
-      index++;
+      index+=2;
+      screen.doResizeIfNecessary();
     }
     else if ((x+placeholder) % (screen.getTerminalSize().getColumns()-5) == 0){ // compares x value with # of columns in world
       y ++ ; // if column end reached it goes to a new line
       placeholder = 0; // changes placeholder value to 0 because index can't be changed and x needs to keep increasing
+      screen.doResizeIfNecessary();
     }
     else{
       placeholder++; // if there is no reason to go to a new line the x value moves along
-    }
-    screen.setCharacter(x+placeholder, y, new TextCharacter(str.charAt(index))); // adds character from index value of string to given location
+      screen.doResizeIfNecessary();
+      }
+
+    screen.setCharacter(x+placeholder, y, new TextCharacter(replacement.charAt(index))); // adds character from index value of string to given location
   }
   screen.doResizeIfNecessary();
 
-  TerminalSize testsize = screen.getTerminalSize();
-  TerminalSize size = screen.getTerminalSize();
-  if (testsize.getRows() != size.getRows() || testsize.getColumns() != size.getColumns()) {
-    screen.clear();
-    size = testsize;
   }
-}
 
 public static void main(String[] args) throws IOException {
 
@@ -82,7 +80,7 @@ public static void main(String[] args) throws IOException {
   } // shows how long system has been running
 
   // for testing
-  // putString(1,2,screen,""+size.getRows()+" "+size.getColumns());
+  //putString(1,19,screen,""+size.getRows()+" "+size.getColumns());
 
   TerminalSize testsize = screen.getTerminalSize();
   if (testsize.getRows() != size.getRows() || testsize.getColumns() != size.getColumns()) {
@@ -195,7 +193,10 @@ public static void main(String[] args) throws IOException {
 
       if (key.getCharacter().equals(' ')){
         if (firstEnterOver){ // this input only matters if ENTER was pressed first
-          if (Strmode.equals("[4]")) display = 6;
+          if (Strmode.equals("[4]")) {
+            display = 6;
+            display%=6;
+          }
           else {
             display = 1; // moves to next display
             display%=6;
@@ -251,7 +252,7 @@ public static void main(String[] args) throws IOException {
           Inputclearer +=  " ";
         } //clears input being displayed on screen
 
-        if (input.equals("--main")){ //checks if input is --main
+       if (input.equals("--main")){ //checks if input is --main
           putString(1,9,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
           screen.refresh();
           revert = true; // sets up loop for going back one
@@ -409,7 +410,7 @@ public static void main(String[] args) throws IOException {
     putString(1,6,screen,"Please enter the word you'd like to use. Press ENTER when done.");
     //for testing
     //putString(1,17,screen, "Successful Mode Entry!");
-    putString(1,7,screen, "Type /'--main'/ to return to the homescreen and press ENTER."); //supposed to bring you back to main menu
+    //putString(1,7,screen, "Type /'--main'/ to return to the homescreen and press ENTER."); //supposed to bring you back to main menu
 
     putString(1,9,screen,input);
 
@@ -422,10 +423,10 @@ public static void main(String[] args) throws IOException {
   if (display == 3){
     putString(1,5,screen,"The mode you have entered is:" + Strmode);
     putString(1,6,screen,"The word you have entered is:" + input);
-    putString(1,7,screen,"Type --controls to see your options on how to proceed"); // if input for control was --control it would show all controls
+    //putString(1,7,screen,"Type --controls to see your options on how to proceed"); // if input for control was --control it would show all controls
     //for testing
     //putString(1,17,screen, "Successful Mode Entry!");
-    putString(1,15,screen,control);
+    //putString(1,15,screen,control);
     /*
     String result = Scraper.master("everything", input);
     String lookingFor = "\n";
@@ -446,8 +447,8 @@ public static void main(String[] args) throws IOException {
     //for testing
     //putString(1,17,screen, "Successful Mode Entry!");
     String result = Scraper.master("definition", input);
-    String lookingFor = "\n";
-    String replaceWith = "|";
+    String lookingFor = "-\"";
+    String replaceWith = " |";
     String newResult = result.replace(lookingFor,replaceWith); //allows for putStringSpecial
     screen.doResizeIfNecessary();
     putStringSpecial(1,10,screen,newResult);
@@ -463,45 +464,49 @@ public static void main(String[] args) throws IOException {
     //for testing
     //putString(1,17,screen, "Successful Mode Entry!");
     String result = Scraper.master("synonyms", input);
-    String lookingFor = "\n";
-    String replaceWith = "|";
-    String newResult = result.replace(lookingFor,replaceWith);
+/*    for (int index = 0; index < result.length(); index++){
+      if (result.substring(index, index + 1).equals("\n")){
+        result = result.substring(0, index) + "_" + result.substring(index + 1);
+      }
+    } */
+  //  String newResult = result.replace(lookingFor,replaceWith);
     screen.doResizeIfNecessary();
-    putStringSpecial(1,10,screen,newResult);
+    putStringSpecial(1,10,screen,result);
 
   }
 
   // code for display 6
   //NEED GAME CODE TO MAKE THIS WORKING
-/*  if (display == 6){
-    putString(1,5,screen,"The mode you have entered is:" + Strmode);
-    putString(1,6,screen,"The word you have entered is:" + input);
-    putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
-    putString(1, 9,screen, "Generating game...");
-    MatchingGame game = new MatchingGame(10);
-    screen.refresh();
-    putString(1, 9, screen, "Word Bank:");
-    putStringSpecial(1, 10, screen, game.generateWordBank());
-    putStringSpecial(1, 12, screen, "Definition:");
-    putStringSpecial(1, 13, screen, game.getDefinition());
-    //for testing
-    //putString(1,17,screen, "Successful Mode Entry!");
-    putString(1,15,screen,control);
-    /*
-    String result = Scraper.master("everything", input);
-    String lookingFor = "\n";
-    String replaceWith = "|";
-    String newResult = result.replace(lookingFor,replaceWith);
-    screen.doResizeIfNecessary();
-    putStringSpecial(1,18,screen,newResult);
-
-  }
-    */
-
-
-  screen.doResizeIfNecessary();
-
+   if (display == 6){
+  putString(1,5,screen,"The mode you have entered is:" + Strmode);
+  putString(1,6,screen,"The word you have entered is:" + input);
+//  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
+  putString(1, 9,screen, "Generating game...");
+  MatchingGame game = new MatchingGame(10);
   screen.refresh();
+  putString(1, 9, screen, "Word Bank:");
+  putStringSpecial(1, 10, screen, game.generateWordBank());
+  putStringSpecial(1, 12, screen, "Definition:");
+  putStringSpecial(1, 13, screen, game.getDefinition());
+  //for testing
+  //putString(1,17,screen, "Successful Mode Entry!");
+  putString(1,15,screen,control);
+}
+  /*
+  String result = Scraper.master("everything", input);
+  String lookingFor = "\n";
+  String replaceWith = "|";
+  String newResult = result.replace(lookingFor,replaceWith);
+  screen.doResizeIfNecessary();
+  putStringSpecial(1,18,screen,newResult);
+
+}
+*/
+
+
+screen.doResizeIfNecessary();
+
+screen.refresh();
 
 }
 
