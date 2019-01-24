@@ -195,7 +195,6 @@ public static void main(String[] args) throws IOException {
         if (firstEnterOver){ // this input only matters if ENTER was pressed first
           if (Strmode.equals("[4]")) {
             display = 6;
-            //display%=6;
           }
           else {
             display = 1; // moves to next display
