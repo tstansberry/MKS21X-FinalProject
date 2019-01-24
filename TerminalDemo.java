@@ -38,12 +38,12 @@ public class TerminalDemo {
     else{
       placeholder++; // if there is no reason to go to a new line the x value moves along
       screen.doResizeIfNecessary();
-      }
+    }
     screen.setCharacter(x+placeholder, y, new TextCharacter(replacement.charAt(index))); // adds character from index value of string to given location
   }
   screen.doResizeIfNecessary();
 
-  }
+}
 
 public static void main(String[] args) throws IOException {
 
@@ -71,7 +71,7 @@ public static void main(String[] args) throws IOException {
   TerminalSize size = screen.getTerminalSize();
   TextGraphics tg = screen.newTextGraphics();
 
-  while (checker) { // runs while ESC isn't pressed
+  while (checker) { // runs if ESC isn't pressed
 
   long tEnd = System.currentTimeMillis();
   long millis = tEnd - tStart;
@@ -111,39 +111,11 @@ public static void main(String[] args) throws IOException {
   */
 
   KeyStroke key = screen.pollInput();
-  if (key != null){ // key can never be set to null
-
-    // for all displays
-    if (key.getKeyType() == KeyType.ArrowRight) {
-      display++;
-      display%=7;//6 displays -- last display loops around to first
-      screen.clear();
-      tEnd = System.currentTimeMillis();
-      millis = tEnd - tStart;
-      if(millis/1000 > lastSecond){
-        lastSecond = millis / 1000;
-        putString(1,3,screen,"Seconds since start of program: "+lastSecond);
-
-      }
-    } // allows user to move up between displays; might want to remove this part based off displays interact
-
-    if (key.getKeyType() == KeyType.ArrowLeft) {
-      display--;
-      display%=7;//6 displays -- last display loops around to first
-      screen.clear();
-      tEnd = System.currentTimeMillis();
-      millis = tEnd - tStart;
-      if(millis/1000 > lastSecond){
-        lastSecond = millis / 1000;
-        putString(1,3,screen,"Seconds since start of program: "+lastSecond);
-
-      }
-    } // allows user to move down between displays; might want to remove this part based off displays interact
-
-
+  // for all displays
+  if(key != null){
     if (key.getKeyType() == KeyType.Escape){
       checker = false;
-    }
+    } //results in suspension of program
 
     // Inputs for display 0
     if (display == 0){
@@ -197,15 +169,16 @@ public static void main(String[] args) throws IOException {
         if (firstEnterOver){ // this input only matters if ENTER was pressed first
           if (Strmode.equals("[4]")) {
             display = 6;
-            display%=7;
+            display%=6;
           }
           else {
             display = 1; // moves to next display
-            display%=7;
+            display%=6;
           }
           screen.clear();
         }
       }
+
       if (key.getKeyType() ==  KeyType.Tab){
         if (firstEnterOver){
           for (int i = 0; i < success.length(); i++){
@@ -223,9 +196,9 @@ public static void main(String[] args) throws IOException {
 
         }
       }
-    }
+    } //0 ends
 
-    // Inputs for display 0
+    // Inputs for display 1
     if (display == 1){
 
       String success  =  "The word you have requested is: " + input + "."; // successful input
@@ -235,6 +208,20 @@ public static void main(String[] args) throws IOException {
         if (!SecondEnter){
           input += key.getCharacter();
         } // adds characters until ENTER is pressed on this display
+      }
+
+      if (key.getKeyType() == KeyType.ArrowLeft) {
+        screen.clear();
+        display = 1;
+        display%=6;//6 displays -- last display loops around to first
+        screen.refresh();
+        tEnd = System.currentTimeMillis();
+        millis = tEnd - tStart;
+        if(millis/1000 > lastSecond){
+          lastSecond = millis / 1000;
+          putString(1,3,screen,"Seconds since start of program: "+lastSecond);
+
+        }
       }
 
       if (key.getKeyType() == KeyType.Backspace) {
@@ -254,7 +241,7 @@ public static void main(String[] args) throws IOException {
           Inputclearer +=  " ";
         } //clears input being displayed on screen
 
-       if (input.equals("--main")){ //checks if input is --main
+        if (input.equals("--main")){ //checks if input is --main
           putString(1,9,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
           screen.refresh();
           revert = true; // sets up loop for going back one
@@ -279,32 +266,32 @@ public static void main(String[] args) throws IOException {
         if (revert){
           screen.clear();
           display = 0;
-          display%=7;
+          display%=6;
           screen.clear();
         }
 
         if (SecondEnter){ //changes display based off mode entry
           if (Strmode.equals("[1]")){
             display = 7;
-            display%=7;
+            display%=6;
             screen.clear();
           }
 
           if (Strmode.equals("[2]")){
             display = 4;
-            display%=7;
+            display%=6;
             screen.clear();
           }
 
           if (Strmode.equals("[3]")){
             display = 5;
-            display%=7;
+            display%=6;
             screen.clear();
           }
 
           if (Strmode.equals("[4]")){
             display = 6;
-            display%=7;
+            display%=6;
             screen.clear();
           }
 
@@ -338,46 +325,6 @@ public static void main(String[] args) throws IOException {
       }
 
     } // display 1 ends
-
-    // for display greater than 3
-    if (display <= 3){
-
-      if ((key.getKeyType() == KeyType.Character)) {
-
-        control += key.getCharacter(); //adds to control
-
-      }
-
-      if (key.getKeyType() == KeyType.Backspace) {
-        for (int i = 0; i < control.length(); i++){
-          Inputclearer +=  " "; // adds white space of the length of control
-        }
-
-        putString(1,12,screen,Inputclearer);// clears the control being displayed
-        control = control.substring(0, control.length() - 1);
-        screen.refresh();
-
-      }
-
-      screen.refresh();
-
-      if ((key.getKeyType() == KeyType.Enter)){
-
-        for (int i = 0; i < Strmode.length(); i++){
-          Inputclearer +=  " ";
-        }
-        putString(1,12,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
-        screen.refresh();
-
-      }
-
-      if (key.getCharacter().equals(' ')){
-        display = 1;
-        display%=7;
-        screen.clear();
-      }
-
-    }
 
   } // input loop ends here
 
@@ -422,7 +369,7 @@ public static void main(String[] args) throws IOException {
   //ISN'T WORKING RIGHT NOW
   //SUPPOSED TO BE DICTIONARY MODE
 
-  if (display == 3 || display == 7){
+  if (display == 3){
     putString(1,5,screen,"The mode you have entered is:" + Strmode);
     putString(1,6,screen,"The word you have entered is:" + input);
     //putString(1,7,screen,"Type --controls to see your options on how to proceed"); // if input for control was --control it would show all controls
@@ -441,7 +388,29 @@ public static void main(String[] args) throws IOException {
     String resultTwo = Scraper.master("synonyms", input);
     screen.doResizeIfNecessary();
     putStringSpecial(1,32,screen,resultTwo);
-  }
+
+    KeyStroke newKey = screen.pollInput();
+
+    if (newKey != null){
+
+        if (key.getKeyType() == KeyType.ArrowLeft) {
+          screen.clear();
+          display = 0;
+          display%=6;//6 displays -- last display loops around to first
+          screen.refresh();
+          tEnd = System.currentTimeMillis();
+          millis = tEnd - tStart;
+          if(millis/1000 > lastSecond){
+            lastSecond = millis / 1000;
+            putString(1,3,screen,"Seconds since start of program: "+lastSecond);
+
+          }
+        }
+
+      }
+
+    }
+
 
   // code for display 4
   // DEFINITION  MODE
@@ -458,62 +427,124 @@ public static void main(String[] args) throws IOException {
     screen.doResizeIfNecessary();
     putStringSpecial(1,10,screen,newResult);
 
-  }
+    KeyStroke newKey = screen.pollInput();
 
-  // code for display 5
-  // SYNONYMS MODE
-  if (display == 5){
-    putString(1,5,screen,"The mode you have entered is:" + Strmode);
-    putString(1,6,screen,"The word you have entered is:" + input);
+    if (newKey != null){
 
-    //for testing
-    //putString(1,17,screen, "Successful Mode Entry!");
-    String result = Scraper.master("synonyms", input);
-/*    for (int index = 0; index < result.length(); index++){
-      if (result.substring(index, index + 1).equals("\n")){
-        result = result.substring(0, index) + "_" + result.substring(index + 1);
+
+        if (key.getKeyType() == KeyType.ArrowLeft) {
+          screen.clear();
+          display = 0;
+          display%=6;//6 displays -- last display loops around to first
+          screen.refresh();
+          tEnd = System.currentTimeMillis();
+          millis = tEnd - tStart;
+          if(millis/1000 > lastSecond){
+            lastSecond = millis / 1000;
+            putString(1,3,screen,"Seconds since start of program: "+lastSecond);
+
+          }
+        }
+
       }
-    } */
+
+    }
+
+    // code for display 5
+    // SYNONYMS MODE
+    if (display == 5){
+      putString(1,5,screen,"The mode you have entered is:" + Strmode);
+      putString(1,6,screen,"The word you have entered is:" + input);
+
+      //for testing
+      //putString(1,17,screen, "Successful Mode Entry!");
+      String result = Scraper.master("synonyms", input);
+      /*    for (int index = 0; index < result.length(); index++){
+      if (result.substring(index, index + 1).equals("\n")){
+      result = result.substring(0, index) + "_" + result.substring(index + 1);
+    }
+  } */
   //  String newResult = result.replace(lookingFor,replaceWith);
-    screen.doResizeIfNecessary();
-    putStringSpecial(1,10,screen,result);
+  screen.doResizeIfNecessary();
+  putStringSpecial(1,10,screen,result);
+  KeyStroke newKey = screen.pollInput();
+
+  if (newKey != null){
+
+
+      if (key.getKeyType() == KeyType.ArrowLeft) {
+        screen.clear();
+        display = 0;
+        display%=6;//6 displays -- last display loops around to first
+        screen.refresh();
+        tEnd = System.currentTimeMillis();
+        millis = tEnd - tStart;
+        if(millis/1000 > lastSecond){
+          lastSecond = millis / 1000;
+          putString(1,3,screen,"Seconds since start of program: "+lastSecond);
+
+        }
+      }
+
+    }
 
   }
 
   // code for display 6
   //NEED GAME CODE TO MAKE THIS WORKING
-   if (display == 6){
-  putString(1,5,screen,"The mode you have entered is:" + Strmode);
-  putString(1,6,screen,"The word you have entered is:" + input);
-//  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
-  screen.refresh();
-  putString(1, 9, screen, "Word Bank:");
-  String lookingFor = "___\"";
-  String replaceWith = " |";
-  String result = game.getDefinition();
-  String newResult = result.replace(lookingFor,replaceWith);
-  putStringSpecial(1, 10, screen, game.generateWordBank());
-  putStringSpecial(1, 12, screen, "Definition:");
-  putStringSpecial(1, 13, screen, newResult);
-  //for testing
-  //putString(1,17,screen, "Successful Mode Entry!");
-  //putString(1,15,screen,control);
-}
-  /*
-  String result = Scraper.master("everything", input);
-  String lookingFor = "\n";
-  String replaceWith = "|";
-  String newResult = result.replace(lookingFor,replaceWith);
+  if (display == 6){
+    putString(1,5,screen,"The mode you have entered is:" + Strmode);
+    putString(1,6,screen,"The word you have entered is:" + input);
+    //  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
+    screen.refresh();
+    putString(1, 9, screen, "Word Bank:");
+    String lookingFor = "___\"";
+    String replaceWith = " |";
+    String result = game.getDefinition();
+    String newResult = result.replace(lookingFor,replaceWith);
+    putStringSpecial(1, 10, screen, game.generateWordBank());
+    putStringSpecial(1, 12, screen, "Definition:");
+    putStringSpecial(1, 13, screen, newResult);
+
+    KeyStroke newKey = screen.pollInput();
+
+    if (newKey != null){
+
+        if (key.getKeyType() == KeyType.ArrowLeft) {
+          screen.clear();
+          display = 0;
+          display%=6;//6 displays -- last display loops around to first
+          screen.refresh();
+          tEnd = System.currentTimeMillis();
+          millis = tEnd - tStart;
+          if(millis/1000 > lastSecond){
+            lastSecond = millis / 1000;
+            putString(1,3,screen,"Seconds since start of program: "+lastSecond);
+
+          }
+        }
+
+      }
+      //for testing
+      //putString(1,17,screen, "Successful Mode Entry!");
+      //putString(1,15,screen,control);
+    }
+
+    /*
+    String result = Scraper.master("everything", input);
+    String lookingFor = "\n";
+    String replaceWith = "|";
+    String newResult = result.replace(lookingFor,replaceWith);
+    screen.doResizeIfNecessary();
+    putStringSpecial(1,18,screen,newResult);
+
+  }
+  */
+
+
   screen.doResizeIfNecessary();
-  putStringSpecial(1,18,screen,newResult);
 
-}
-*/
-
-
-screen.doResizeIfNecessary();
-
-screen.refresh();
+  screen.refresh();
 
 }
 
