@@ -24,7 +24,7 @@ public class TerminalDemo {
     int placeholder = 0;
     String replacement = str;
     for (int index = 0; index < str.length(); index++) {
-      if (str.charAt(index) == '_') { // loops through the str and checks for "|"
+      if (str.charAt(index) == '-') { // loops through the str and checks for "|"
       y++; // increases y to put text on new line instead
       placeholder = 0; // changes placeholder value to 0 because index can't be changed and x needs to keep increasing
       index+=2;
@@ -446,7 +446,7 @@ public static void main(String[] args) throws IOException {
     //for testing
     //putString(1,17,screen, "Successful Mode Entry!");
     String result = Scraper.master("definition", input);
-    String lookingFor = "-\"";
+    String lookingFor = "___\"";
     String replaceWith = " |";
     String newResult = result.replace(lookingFor,replaceWith); //allows for putStringSpecial
     screen.doResizeIfNecessary();
@@ -484,12 +484,16 @@ public static void main(String[] args) throws IOException {
   MatchingGame game = new MatchingGame(10);
   screen.refresh();
   putString(1, 9, screen, "Word Bank:");
+  String lookingFor = "___\"";
+  String replaceWith = " |";
+  String result = game.getDefinition();
+  String newResult = result.replace(lookingFor,replaceWith);
   putStringSpecial(1, 10, screen, game.generateWordBank());
   putStringSpecial(1, 12, screen, "Definition:");
-  putStringSpecial(1, 13, screen, game.getDefinition());
+  putStringSpecial(1, 13, screen, newResult);
   //for testing
   //putString(1,17,screen, "Successful Mode Entry!");
-  putString(1,15,screen,control);
+  //putString(1,15,screen,control);
 }
   /*
   String result = Scraper.master("everything", input);
