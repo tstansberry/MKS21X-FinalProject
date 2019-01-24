@@ -33,7 +33,7 @@ public class Scraper {
       String output = "";
       for (int x = 0; x < div.size(); x ++) {
         if (checkValueTag(div.get(x), value)) {
-          output += (value + 1) + ". \"" + html2text(div.get(x).toString()) + "-\"";
+          output += (value + 1) + "." + html2text(div.get(x).toString()) + "_\"";
           value ++;
         }
       }
