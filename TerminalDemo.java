@@ -533,26 +533,26 @@ public static void main(String[] args) throws IOException {
   //NEED GAME CODE TO MAKE THIS WORKING
   while (display == 6){
     putString(1,3,screen,"The mode you have entered is:" + Strmode);
-    putString(1,4,screen,"WELCOME TO THE MATCHING GAME!");
-    putString(1,5,screen,"Type your guess and press ENTER. Press TAB if you decide to give up. Press the LEFT ARROW to go back to the main screen.");
+    putString(1,5,screen,"WELCOME TO THE MATCHING GAME!");
+    putString(1,6,screen,"Type your guess and press ENTER. Press TAB if you decide to give up. Press the LEFT ARROW to go back to the main screen.");
     //putString(1,6,screen,"The word you have entered is:" + input);
     //  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
     screen.refresh();
-    putString(1, 12, screen, "Word Bank:");
+    putString(1, 15, screen, "Word Bank:");
     String lookingFor = "___\"";
     String replaceWith = " |";
   //  String ansDisplay = "Your guess: " + answer;
     String result = game.getDefinition();
     String output = "Your input " + answer + " is incorrect.";
     String newResult = result.replace(lookingFor,replaceWith);
-    putStringSpecial(1, 13, screen, game.generateWordBank());
-    putStringSpecial(1, 15, screen, "Definition:");
-    putStringSpecial(1, 16, screen, newResult);
+    putStringSpecial(1, 16, screen, game.generateWordBank());
+    putStringSpecial(1, 18, screen, "Definition:");
+    putStringSpecial(1, 19, screen, newResult);
     if (!gameEnter){
-      putString(1,9,screen,"Your guess is:");
-      putString(1,10,screen,answer);
+      putString(1,10,screen,"Your guess is:"); //10
+      putString(1,11,screen,answer); //11
     }
-    putString(1,7,screen,"SCORE: " + score); // tells user input was valid
+    putString(1,8,screen,"SCORE: " + score); // tells user input was valid
 
     KeyStroke newKey = screen.pollInput();
 
@@ -590,7 +590,7 @@ public static void main(String[] args) throws IOException {
             for (int i = 0; i < output.length(); i++){
               Inputclearer +=  " ";
             }
-            putString(1,11,screen,Inputclearer);
+            putString(1,12,screen,Inputclearer); //12
           }
         }
 
@@ -599,7 +599,7 @@ public static void main(String[] args) throws IOException {
           for (int i = 0; i < answer.length(); i++){
             Inputclearer +=  " "; // looks at how long Strmode is and clears it from screen
           }
-          putString(1,10,screen,Inputclearer); // white space of the length of Strmode
+          putString(1,11,screen,Inputclearer); // white space of the length of Strmode //11
           answer = answer.substring(0, answer.length() - 1); //takes away last index
           screen.refresh();// putString later in the code displays updated answer
         }
@@ -612,22 +612,22 @@ public static void main(String[] args) throws IOException {
           for (int i = 0; i < answer.length(); i++){
             Inputclearer +=  " ";
           } // gets rid of putString that displays Strmode
-          putString(1,10,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
+          putString(1,11,screen, Inputclearer); // clears input (doesn't matter if it was valid or not) //11
           Inputclearer = "";
           for (int i = 0; i < "Your guess is: ".length(); i++){
             Inputclearer +=  " ";
           }
-          putString(1,9,screen, Inputclearer);
+          putString(1,10,screen, Inputclearer); //10
           screen.refresh();
 
 
           if (game.checkAnswer(answer)){ //if answer is correctl
-            putString(1,10,screen,"Your input " + answer + " is correct. Press SPACE for next word.");
+            putString(1,11,screen,"Your input " + answer + " is correct. Press SPACE for next word."); //11
             score += 100;
           }
 
           else{
-            putString(1,11,screen,output);
+            putString(1,12,screen,output);
             score -= 50;
             answer = "";
             gameEnter = false;
@@ -643,7 +643,7 @@ public static void main(String[] args) throws IOException {
             for (int i = 0; i < replace.length(); i++){
               Inputclearer +=  " ";
             }
-            putString(1,10,screen, Inputclearer);
+            putString(1,11,screen, Inputclearer); //11
             answer = "";
             gameEnter = false;
             game.nextWord();
@@ -656,17 +656,17 @@ public static void main(String[] args) throws IOException {
         if (newKey.getKeyType() ==  KeyType.Tab){
 
               String cheat = game.getAnswer();
-              putString (1,11,screen,"The correct answer is: " + cheat);
+              putString (1,13,screen,"The correct answer is: " + cheat); //13
               for (int i = 0; i < answer.length(); i++){
                 Inputclearer +=  " ";
               } // gets rid of putString that displays Strmode
-              putString(1,10,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
+              putString(1,11,screen, Inputclearer); // clears input (doesn't matter if it was valid or not) //11
               Inputclearer = "";
               for (int i = 0; i < "Your guess is: ".length(); i++){
                 Inputclearer +=  " ";
               }
             }
-            putString(1,9,screen, Inputclearer);
+            putString(1,10,screen, Inputclearer); //10
 
       }
     }
