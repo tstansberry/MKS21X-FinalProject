@@ -563,9 +563,8 @@ public static void main(String[] args) throws IOException {
     if (newKey != null){
 
         if (newKey.getKeyType() == KeyType.ArrowLeft) {
-          screen.clear();
           display = 0;
-          display%=6;//6 displays -- last display loops around to first
+          //display%=6;//6 displays -- last display loops around to first
           firstEnterOver = false;
           SecondEnter = false;
           gameEnter=false;
@@ -585,7 +584,21 @@ public static void main(String[] args) throws IOException {
         // follows similar logic as display 0 and 1
 
         if ((newKey.getKeyType() == KeyType.Character)) {
-          if (!gameEnter){
+          if (newKey.getCharacter().equals(' ')){
+            if (gameEnter){ // this input only matters if ENTER was pressed first
+              // next word function is called here
+              String replace = "Your input " + answer + " is correct. Press SPACE for next word.";
+              for (int i = 0; i < replace.length(); i++){
+                Inputclearer +=  " ";
+              }
+              putString(1,11,screen, Inputclearer); //11
+              answer = "";
+              gameEnter = false;
+              game.nextWord();
+              // needs to change word here
+              }
+          }
+          else if (!gameEnter){
             answer += newKey.getCharacter(); // adds charater to string as long as enter isn't pressed
             //String reset = "Your input " + answer + " is incorrect.";
 
@@ -652,20 +665,8 @@ public static void main(String[] args) throws IOException {
 
         }
 
-        if (newKey.getCharacter().equals(' ')){
-          if (gameEnter){ // this input only matters if ENTER was pressed first
-            // next word function is called here
-            String replace = "Your input " + answer + " is correct. Press SPACE for next word.";
-            for (int i = 0; i < replace.length(); i++){
-              Inputclearer +=  " ";
-            }
-            putString(1,11,screen, Inputclearer); //11
-            answer = "";
-            gameEnter = false;
-            game.nextWord();
-            // needs to change word here
-            }
-        }
+
+
 
 
 
