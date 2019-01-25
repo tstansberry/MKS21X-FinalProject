@@ -188,7 +188,7 @@ public static void main(String[] args) throws IOException {
         if (firstEnterOver){ // this input only matters if ENTER was pressed first
           if (Strmode.equals("[4]")) {
             display = 6;
-            display%=6;
+            //display%=6;
           }
           else {
             display = 1; // moves to next display
@@ -529,8 +529,6 @@ public static void main(String[] args) throws IOException {
     putStringSpecial(1, 12, screen, game.generateWordBank());
     putStringSpecial(1, 15, screen, "Definition:");
     putStringSpecial(1, 16, screen, newResult);
-    putString(1,9,screen,"Your guess: " + answer);
-    putString(1,7,screen,"SCORE: " + score); // tells user input was valid
 
     KeyStroke newKey = screen.pollInput();
 
@@ -555,9 +553,9 @@ public static void main(String[] args) throws IOException {
 
         // follows similar logic as display 0 and 1
 
-        if ((key.getKeyType() == KeyType.Character)) {
+        if ((newKey.getKeyType() == KeyType.Character)) {
           if (!gameEnter){
-            answer += key.getCharacter(); // adds charater to string as long as enter isn't pressed
+            answer += newKey.getCharacter(); // adds charater to string as long as enter isn't pressed
             String reset = "Your input " + answer + " is incorrect.";
             for (int i = 0; i < reset.length(); i++){
               Inputclearer +=  " "; // looks at how long Strmode is and clears it from screen
@@ -566,7 +564,7 @@ public static void main(String[] args) throws IOException {
           }
         }
 
-        if (key.getKeyType() == KeyType.Backspace) {
+        if (newKey.getKeyType() == KeyType.Backspace) {
           for (int i = 0; i < answer.length(); i++){
             Inputclearer +=  " "; // looks at how long Strmode is and clears it from screen
           }
@@ -618,7 +616,8 @@ public static void main(String[] args) throws IOException {
         }*/
 
       }
-
+      putString(1,9,screen,"Your guess: " + answer);
+      putString(1,7,screen,"SCORE: " + score); // tells user input was valid
       }
 
       //for testing
