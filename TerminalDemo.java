@@ -379,6 +379,7 @@ public static void main(String[] args) throws IOException {
 
     putString(1,5,screen,"The mode you have entered is: " + Strmode);
     putString(1,6,screen,"Please enter the word you'd like to use. Press ENTER when done.");
+    putString(1,8,screen,"Press LEFT ARROW to go back to main menu.");
     //for testing
     //putString(1,17,screen, "Successful Mode Entry!");
     //putString(1,7,screen, "Type /'--main'/ to return to the homescreen and press ENTER."); //supposed to bring you back to main menu
@@ -394,6 +395,7 @@ public static void main(String[] args) throws IOException {
   if (display == 3){
     putString(1,5,screen,"The mode you have entered is:" + Strmode);
     putString(1,6,screen,"The word you have entered is:" + input);
+    putString(1,8,screen,"Press LEFT ARROW to go back to main menu.");
     //putString(1,7,screen,"Type --controls to see your options on how to proceed"); // if input for control was --control it would show all controls
     //for testing
 
@@ -444,7 +446,7 @@ public static void main(String[] args) throws IOException {
   if (display == 4){
     putString(1,5,screen,"The mode you have entered is:" + Strmode);
     putString(1,6,screen,"The word you have entered is:" + input);
-
+    putString(1,8,screen,"Press LEFT ARROW to go back to main menu.");
     //for testing
     //putString(1,17,screen, "Successful Mode Entry!");
     String result = Scraper.master("definition", input);
@@ -530,7 +532,9 @@ public static void main(String[] args) throws IOException {
   // code for display 6
   //NEED GAME CODE TO MAKE THIS WORKING
   while (display == 6){
-    putString(1,5,screen,"The mode you have entered is:" + Strmode);
+    putString(1,3,screen,"The mode you have entered is:" + Strmode);
+    putString(1,4,screen,"WELCOME TO THE MATCHING GAME!");
+    putString(1,5,screen,"Type your guess and press ENTER. Press TAB if you decide to give up. Press the LEFT ARROW to go back to the main screen.");
     //putString(1,6,screen,"The word you have entered is:" + input);
     //  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
     screen.refresh();
