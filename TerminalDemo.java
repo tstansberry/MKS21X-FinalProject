@@ -188,7 +188,6 @@ public static void main(String[] args) throws IOException {
         if (firstEnterOver){ // this input only matters if ENTER was pressed first
           if (Strmode.equals("[4]")) {
             display = 6;
-            //display%=6;
           }
           else {
             display = 1; // moves to next display
@@ -233,6 +232,8 @@ public static void main(String[] args) throws IOException {
         screen.clear();
         display = 1;
         display%=6;//6 displays -- last display loops around to first
+        Strmode = ""; //Resets the mode
+        input = "";
         screen.refresh();
         tEnd = System.currentTimeMillis();
         millis = tEnd - tStart;
@@ -292,7 +293,7 @@ public static void main(String[] args) throws IOException {
 
         if (SecondEnter){ //changes display based off mode entry
           if (Strmode.equals("[1]")){
-            display = 7;
+            display = 3;
             display%=6;
             screen.clear();
           }
@@ -358,7 +359,7 @@ public static void main(String[] args) throws IOException {
 
     //putString(1,7,screen,"Please start typing a word. Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
 
-    putStringSpecial(1,5,screen, "There are three different modes:" );
+    putStringSpecial(1,5,screen, "There are four different modes:" );
     putStringSpecial(1,6,screen, "[1] DICTIONARY" );
     putStringSpecial(1,7,screen, "[2] DEFINITION" );
     putStringSpecial(1,8,screen, "[3] SYNONYMS" );
@@ -399,15 +400,15 @@ public static void main(String[] args) throws IOException {
     String result = Scraper.getSampleDefinition(input);
     String lookingFor = "___\"";
     String replaceWith = " |";
-    putString(1,10,screen,"Definitions:");
-    putString(1,30,screen,"Definitions:");
+    putString(1,10,screen,"Definition:");
+    putString(1,20,screen,"Synonyms:");
     String newResult = result.replace(lookingFor,replaceWith); //allows for putStringSpecial
     screen.doResizeIfNecessary();
     putStringSpecial(1,12,screen,newResult);
 
     String resultTwo = Scraper.master("synonyms", input);
     screen.doResizeIfNecessary();
-    putStringSpecial(1,32,screen,resultTwo);
+    putStringSpecial(1,22,screen,resultTwo);
 
     KeyStroke newKey = screen.pollInput();
 
@@ -416,9 +417,11 @@ public static void main(String[] args) throws IOException {
         if (newKey.getKeyType() == KeyType.ArrowLeft) { //goes back to mode 0
           screen.clear();
           display = 0;
-          display%=6;//6 displays -- last display loops around to first
+          //display%=6;//6 displays -- last display loops around to first
           firstEnterOver = false; //sets to og
           SecondEnter = false; //sets to og
+          Strmode = ""; //Resets the mode
+          input = "";
           screen.refresh();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
@@ -460,6 +463,8 @@ public static void main(String[] args) throws IOException {
           firstEnterOver = false;
           SecondEnter = false;
           display%=6;//6 displays -- last display loops around to first
+          Strmode = ""; //Resets the mode
+          input = "";
           screen.refresh();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
@@ -500,6 +505,8 @@ public static void main(String[] args) throws IOException {
         screen.clear();
         display = 0;
         display%=6;//6 displays -- last display loops around to first
+        Strmode = ""; //Resets the mode
+        input = "";
         screen.refresh();
         tEnd = System.currentTimeMillis();
         millis = tEnd - tStart;
@@ -541,6 +548,8 @@ public static void main(String[] args) throws IOException {
           firstEnterOver = false;
           SecondEnter = false;
           gameEnter=false;
+          Strmode = ""; //Resets the mode
+          input = "";
           screen.refresh();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
