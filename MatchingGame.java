@@ -7,6 +7,7 @@ public class MatchingGame{
   private ArrayList<String> wordBank;
   private int size;
   private ArrayList<String> answers;
+  private ArrayList<String> notTaken;
 
 
   public static void main(String[] args) throws IOException{
@@ -18,19 +19,18 @@ public class MatchingGame{
     System.out.println("Definition: \n" + game.answers.get(1));
     System.out.println("Answer: " + game.getAnswer());
 
-    game.resetGame(10);
-    System.out.println("\n\n");
-    for (int x = 0; x < 10; x ++) {
-      System.out.println((x + 1) + ". " + game.wordBank.get(x));
+    for (int x = 0; x < 9; x ++) {
+      game.nextWord();
+      System.out.println(game.getAnswer());
     }
-    //System.out.println("Answer: " + game.answers.get(0));
-    System.out.println("Definition: \n" + game.answers.get(1));
-    System.out.println("Answer: " + game.getAnswer());
-    game.resetGame(10);
   }
 
   public MatchingGame(int length) throws IOException{
     generateWords(length);
+    notTaken = new ArrayList<String>();
+    for (String x: wordBank) {
+      notTaken.add(x);
+    }
     generateAnswers();
     randomizeWords();
   }
@@ -85,5 +85,15 @@ public class MatchingGame{
     generateWords(length);
     generateAnswers();
     randomizeWords();
+  }
+
+  public void nextWord() throws IOException{
+    if (notTaken.size() == 0) resetGame(size);
+    else {
+      Random rand = new Random();
+      String newAnswer = notTaken.remove(rand.nextInt(notTaken.size()));
+      answers.set(0, newAnswer);
+      answers.set(1, Scraper.getDefinition(newAnswer));
+    }
   }
 }
