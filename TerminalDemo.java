@@ -24,13 +24,13 @@ public class TerminalDemo {
     int placeholder = 0;
     String replacement = str;
     for (int index = 0; index < str.length(); index++) {
-      if (str.charAt(index) == '-') { // loops through the str and checks for "|" (currently not using this part)
+    /*  if (str.charAt(index) == '') { // loops through the str and checks for "|" (currently not using this part)
       y++; // increases y to put text on new line instead
       placeholder = 0; // changes placeholder value to 0 because index can't be changed and x needs to keep increasing
       index+=2;
       screen.doResizeIfNecessary();
-    }
-    else if ((x+placeholder) % (screen.getTerminalSize().getColumns()-5) == 0){ // compares x value with # of columns in world
+    } */
+    if ((x+placeholder) % (screen.getTerminalSize().getColumns()-5) == 0){ // compares x value with # of columns in world
       y ++ ; // if column end reached it goes to a new line
       placeholder = 0; // changes placeholder value to 0 because index can't be changed and x needs to keep increasing
       screen.doResizeIfNecessary();
