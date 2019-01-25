@@ -17,6 +17,16 @@ public class MatchingGame{
     //System.out.println("Answer: " + game.answers.get(0));
     System.out.println("Definition: \n" + game.answers.get(1));
     System.out.println("Answer: " + game.getAnswer());
+
+    game.resetGame(10);
+    System.out.println("\n\n");
+    for (int x = 0; x < 10; x ++) {
+      System.out.println((x + 1) + ". " + game.wordBank.get(x));
+    }
+    //System.out.println("Answer: " + game.answers.get(0));
+    System.out.println("Definition: \n" + game.answers.get(1));
+    System.out.println("Answer: " + game.getAnswer());
+    game.resetGame(10);
   }
 
   public MatchingGame(int length) throws IOException{
@@ -65,5 +75,15 @@ public class MatchingGame{
 
   public String getAnswer() {
     return answers.get(0);
+  }
+
+  public boolean checkAnswer(String input) {
+    return input.equals(answers.get(0));
+  }
+
+  public void resetGame(int length) throws IOException{
+    generateWords(length);
+    generateAnswers();
+    randomizeWords();
   }
 }

@@ -235,6 +235,7 @@ public static void main(String[] args) throws IOException {
         Strmode = ""; //Resets the mode
         input = "";
         screen.refresh();
+        screen.clear();
         tEnd = System.currentTimeMillis();
         millis = tEnd - tStart;
         if(millis/1000 > lastSecond){
@@ -423,6 +424,7 @@ public static void main(String[] args) throws IOException {
           Strmode = ""; //Resets the mode
           input = "";
           screen.refresh();
+          screen.clear();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
           if(millis/1000 > lastSecond){
@@ -466,6 +468,7 @@ public static void main(String[] args) throws IOException {
           Strmode = ""; //Resets the mode
           input = "";
           screen.refresh();
+          screen.clear();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
           if(millis/1000 > lastSecond){
@@ -510,6 +513,7 @@ public static void main(String[] args) throws IOException {
         Strmode = ""; //Resets the mode
         input = "";
         screen.refresh();
+        screen.clear();
         tEnd = System.currentTimeMillis();
         millis = tEnd - tStart;
         if(millis/1000 > lastSecond){
@@ -553,6 +557,7 @@ public static void main(String[] args) throws IOException {
           Strmode = ""; //Resets the mode
           input = "";
           screen.refresh();
+          screen.clear();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
           if(millis/1000 > lastSecond){
