@@ -529,9 +529,9 @@ public static void main(String[] args) throws IOException {
 
   // code for display 6
   //NEED GAME CODE TO MAKE THIS WORKING
-  if (display == 6){
+  while (display == 6){
     putString(1,5,screen,"The mode you have entered is:" + Strmode);
-    putString(1,6,screen,"The word you have entered is:" + input);
+    //putString(1,6,screen,"The word you have entered is:" + input);
     //  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
     screen.refresh();
     putString(1, 11, screen, "Word Bank:");
@@ -542,6 +542,9 @@ public static void main(String[] args) throws IOException {
     putStringSpecial(1, 12, screen, game.generateWordBank());
     putStringSpecial(1, 15, screen, "Definition:");
     putStringSpecial(1, 16, screen, newResult);
+    putString(1,9,screen,"Your guess:");
+    putString(1,10,screen,answer);
+    putString(1,7,screen,"SCORE: " + score); // tells user input was valid
 
     KeyStroke newKey = screen.pollInput();
 
@@ -573,10 +576,7 @@ public static void main(String[] args) throws IOException {
           if (!gameEnter){
             answer += newKey.getCharacter(); // adds charater to string as long as enter isn't pressed
             String reset = "Your input " + answer + " is incorrect.";
-            for (int i = 0; i < reset.length(); i++){
-              Inputclearer +=  " "; // looks at how long Strmode is and clears it from screen
-            }
-            putString(1,10,screen,reset);
+
           }
         }
 
@@ -584,12 +584,10 @@ public static void main(String[] args) throws IOException {
           for (int i = 0; i < answer.length(); i++){
             Inputclearer +=  " "; // looks at how long Strmode is and clears it from screen
           }
-          putString(1,9,screen,Inputclearer); // white space of the length of Strmode
+          putString(1,10,screen,Inputclearer); // white space of the length of Strmode
           answer = answer.substring(0, answer.length() - 1); //takes away last index
-          screen.refresh();// putString later in the code displays updated Strmode
+          screen.refresh();// putString later in the code displays updated answer
         }
-
-        screen.refresh();
 
        /*  commented out so that functions in matchingGame.java can be added to make this working
 
@@ -632,8 +630,6 @@ public static void main(String[] args) throws IOException {
         }*/
 
       }
-      putString(1,9,screen,"Your guess: " + answer);
-      putString(1,7,screen,"SCORE: " + score); // tells user input was valid
       }
 
       //for testing
