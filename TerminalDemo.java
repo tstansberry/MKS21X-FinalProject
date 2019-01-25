@@ -666,10 +666,7 @@ public static void main(String[] args) throws IOException {
 
         }
 
-
-
-
-
+        if (newKey.getKeyType() == KeyType.Escape) checker = false;
 
         if (newKey.getKeyType() ==  KeyType.Tab){
               cheater = true;
