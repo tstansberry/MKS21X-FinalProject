@@ -59,13 +59,16 @@ public static void main(String[] args) throws IOException {
   long lastSecond = 0;
   String input = "";
   int display = 0;
+  int score = 0;
   boolean checker = true;
   boolean firstEnterOver = false;
   boolean SecondEnter = false;
   boolean modeGoing = true;
   boolean revert = false;
+  boolean gameEnter = false;
   String Strmode = "";
   String control = "";
+  String answer = "";
   String Inputclearer = ""; //
   //screen.refresh();
 
@@ -394,10 +397,12 @@ public static void main(String[] args) throws IOException {
 
     if (newKey != null){
 
-        if (key.getKeyType() == KeyType.ArrowLeft) {
+        if (newKey.getKeyType() == KeyType.ArrowLeft) {
           screen.clear();
           display = 0;
           display%=6;//6 displays -- last display loops around to first
+          firstEnterOver = false;
+          SecondEnter = false;
           screen.refresh();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
@@ -433,9 +438,11 @@ public static void main(String[] args) throws IOException {
     if (newKey != null){
 
 
-        if (key.getKeyType() == KeyType.ArrowLeft) {
+        if (newKey.getKeyType() == KeyType.ArrowLeft) {
           screen.clear();
           display = 0;
+          firstEnterOver = false;
+          SecondEnter = false;
           display%=6;//6 displays -- last display loops around to first
           screen.refresh();
           tEnd = System.currentTimeMillis();
@@ -473,7 +480,7 @@ public static void main(String[] args) throws IOException {
   if (newKey != null){
 
 
-      if (key.getKeyType() == KeyType.ArrowLeft) {
+      if (newKey.getKeyType() == KeyType.ArrowLeft) {
         screen.clear();
         display = 0;
         display%=6;//6 displays -- last display loops around to first
@@ -498,23 +505,28 @@ public static void main(String[] args) throws IOException {
     putString(1,6,screen,"The word you have entered is:" + input);
     //  putString(1,7,screen,"Type /'--controls'/ to see your options on how to proceed");
     screen.refresh();
-    putString(1, 9, screen, "Word Bank:");
+    putString(1, 11, screen, "Word Bank:");
     String lookingFor = "___\"";
     String replaceWith = " |";
     String result = game.getDefinition();
     String newResult = result.replace(lookingFor,replaceWith);
-    putStringSpecial(1, 10, screen, game.generateWordBank());
-    putStringSpecial(1, 12, screen, "Definition:");
-    putStringSpecial(1, 13, screen, newResult);
+    putStringSpecial(1, 12, screen, game.generateWordBank());
+    putStringSpecial(1, 15, screen, "Definition:");
+    putStringSpecial(1, 16, screen, newResult);
+    putString(1,9,screen,"Your guess: " + answer);
+    putString(1,7,screen,"SCORE: " + score); // tells user input was valid
 
     KeyStroke newKey = screen.pollInput();
 
     if (newKey != null){
 
-        if (key.getKeyType() == KeyType.ArrowLeft) {
+        if (newKey.getKeyType() == KeyType.ArrowLeft) {
           screen.clear();
           display = 0;
           display%=6;//6 displays -- last display loops around to first
+          firstEnterOver = false;
+          SecondEnter = false;
+          gameEnter=false;
           screen.refresh();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
@@ -525,11 +537,74 @@ public static void main(String[] args) throws IOException {
           }
         }
 
+        if ((key.getKeyType() == KeyType.Character)) {
+          if (!gameEnter){
+            answer += key.getCharacter(); // adds charater to string as long as enter isn't pressed
+            String reset = "Your input " + answer + " is incorrect.";
+            for (int i = 0; i < reset.length(); i++){
+              Inputclearer +=  " "; // looks at how long Strmode is and clears it from screen
+            }
+            putString(1,10,screen,reset);
+          }
+        }
+
+        if (key.getKeyType() == KeyType.Backspace) {
+          for (int i = 0; i < answer.length(); i++){
+            Inputclearer +=  " "; // looks at how long Strmode is and clears it from screen
+          }
+          putString(1,9,screen,Inputclearer); // white space of the length of Strmode
+          answer = answer.substring(0, answer.length() - 1); //takes away last index
+          screen.refresh();// putString later in the code displays updated Strmode
+        }
+
+        screen.refresh();
+
+       /*  if ((key.getKeyType() == KeyType.Enter)){
+
+          for (int i = 0; i < answer.length(); i++){
+            Inputclearer +=  " ";
+          } // gets rid of putString that displays Strmode
+
+          putString(1,9,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
+          screen.refresh();
+
+
+          if (){ //if answer is correctl
+            putString(1,10,screen,"Your input " + answer + " is correct. Press SPACE for next word.")
+            gameEnter = true;
+            score += 100
+          }
+
+          else{
+            putString(1,10,screen,"Your input " + answer + " is incorrect.");
+            Strmode = ""; // allows user to reenter a new input
+            score -= 50
+            screen.refresh();
+          }
+
+        }
+
+        if (newKey.getCharacter().equals(' ')){
+          if (gameEnter){ // this input only matters if ENTER was pressed first
+            // next word function is called here
+            String replace = "Your input " + answer + " is correct. Press SPACE for next word.";
+            for (int i = 0; i < replace.length(); i++){
+              Inputclearer +=  " ";
+            }
+            putString(1,10,screen, Inputclearer);
+            answer = "";
+            gameEnter = false;
+            }
+        }*/
+
       }
+
+      }
+
       //for testing
       //putString(1,17,screen, "Successful Mode Entry!");
       //putString(1,15,screen,control);
-    }
+
 
     /*
     String result = Scraper.master("everything", input);
