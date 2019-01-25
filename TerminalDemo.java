@@ -642,6 +642,7 @@ public static void main(String[] args) throws IOException {
             putString(1,10,screen, Inputclearer);
             answer = "";
             gameEnter = false;
+            game.nextWord();
             // needs to change word here
             }
         }
