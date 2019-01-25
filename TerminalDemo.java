@@ -650,8 +650,6 @@ public static void main(String[] args) throws IOException {
           putString(1,8,screen, Inputclearer);
           screen.refresh();
 
-
-
           if (game.checkAnswer(answer)){ //if answer is correctl
             putString(1,11,screen,"Your input " + answer + " is correct. Press SPACE for next word."); //11
             if (!cheater){
@@ -690,24 +688,6 @@ public static void main(String[] args) throws IOException {
       }
     }
 
-
-      //for testing
-      //putString(1,17,screen, "Successful Mode Entry!");
-      //putString(1,15,screen,control);
-
-
-    /*
-    String result = Scraper.master("everything", input);
-    String lookingFor = "\n";
-    String replaceWith = "|";
-    String newResult = result.replace(lookingFor,replaceWith);
-    screen.doResizeIfNecessary();
-    putStringSpecial(1,18,screen,newResult);
-
-  }
-  */
-
-
   screen.doResizeIfNecessary();
 
   screen.refresh();
@@ -718,48 +698,3 @@ screen.stopScreen(); // loops comes here if ESC pressed
 
 }
 }
-
-//_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
-// OLD CODE TO REFER TO CALL ON SCRAPER AND CONNECT THE FILES
-
-/*  if (firstEnterOver){
-putString(1,12,screen,"Please choose a mode. The available modes are: (1) defintion and (2) synonym. Input either 1 or 2.");
-putString(1,13,screen,"Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
-
-if (key != null) {
-if (key.getKeyType() == KeyType.Escape){
-checker = false;
-
-}
-
-if ((key.getKeyType() == KeyType.Character)) {
-Strmode += key.getCharacter();
-}
-
-if ((key.getKeyType() == KeyType.Enter)){
-putString(1,15,screen,"The mode you have requested is: " + Strmode + ".");
-SecondEnter =  true;
-
-}
-} */
-
-
-/*    if (SecondEnter){
-if (mode.equals("1")) {
-putString(1,17,screen, "Successful Mode Entry!");
-String result = Scraper.master("definition", output);
-String lookingFor = "\n";
-String replaceWith = "|";
-String newResult = result.replace(lookingFor,replaceWith);
-screen.doResizeIfNecessary();
-putStringSpecial(1,19,screen,newResult);
-}
-else if (mode.equals("2")) {
-putString(1,17,screen, "Successful Mode Entry!");
-String result = Scraper.master("synonyms", output);
-putStringSpecial(1,19,screen,result);
-screen.doResizeIfNecessary();
-}
-else{
-putString(1,17,screen,"Sorry but the mode you entered is invalid. Click ENTER to reset or ESC to quit.");
-} */
