@@ -590,6 +590,7 @@ public static void main(String[] args) throws IOException {
               putString(1,11,screen, Inputclearer); //11
               answer = "";
               gameEnter = false;
+              screen.clear();
               game.nextWord();
               // needs to change word here
               }
