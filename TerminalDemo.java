@@ -24,7 +24,7 @@ public class TerminalDemo {
     int placeholder = 0;
     String replacement = str;
     for (int index = 0; index < str.length(); index++) {
-      if (str.charAt(index) == '-') { // loops through the str and checks for "|"
+      if (str.charAt(index) == '-') { // loops through the str and checks for "|" (currently not using this part)
       y++; // increases y to put text on new line instead
       placeholder = 0; // changes placeholder value to 0 because index can't be changed and x needs to keep increasing
       index+=2;
@@ -53,6 +53,7 @@ public static void main(String[] args) throws IOException {
   Screen screen = new DefaultTerminalFactory().createScreen();
   screen.startScreen(); // display and creation of screen
 
+// I love instance variables sorry
   long tStart = System.currentTimeMillis();
   long temptime = 0;
   long tempend = 0;
@@ -63,7 +64,6 @@ public static void main(String[] args) throws IOException {
   boolean checker = true;
   boolean firstEnterOver = false;
   boolean SecondEnter = false;
-  boolean modeGoing = true;
   boolean revert = false;
   boolean gameEnter = false;
   String Strmode = "";
@@ -108,10 +108,25 @@ public static void main(String[] args) throws IOException {
   - takes you to a screen where your mode can be confirmed
   - asks user for word inputted
 
-  display 3:
+  display 2:
   - shows results based off word and mode inputs
   - allows user to switch to a different mode with the same word or change word and/or mode
 
+  display 3:
+  - shows first 5 definitions and all syns
+
+  display 4:
+  - shows all definitions
+
+  display 5:
+  - shows all synonyms
+
+  display 6:
+  - game
+
+  display < 1:
+  - should be able to go back to display 0
+  - everything should be set to default at that point
   */
 
   KeyStroke key = screen.pollInput();
@@ -245,14 +260,15 @@ public static void main(String[] args) throws IOException {
           Inputclearer +=  " ";
         } //clears input being displayed on screen
 
-        if (input.equals("--main")){ //checks if input is --main
+    /*    if (input.equals("--main")){ //checks if input is --main
           putString(1,9,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
           screen.refresh();
           revert = true; // sets up loop for going back one
 
         } // should change back to display 0 but doesnt work
 
-        else {
+
+        else{ */
 
           putString(1,9,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
           screen.refresh();
@@ -261,18 +277,18 @@ public static void main(String[] args) throws IOException {
 
           putString(1,13,screen,success); // shows input
           putString(1,14,screen,"Please check mode and press SPACE to proceed. You may press TAB to change your mode entry."); //guides user
-        }
+        //}
       }
 
 
-      if (key.getCharacter().equals(' ')){
+      if (key.getCharacter().equals(' ')){ // changes to mode based off Strmode input
 
-        if (revert){
+        /*if (revert){
           screen.clear();
           display = 0;
           display%=6;
           screen.clear();
-        }
+        }*/
 
         if (SecondEnter){ //changes display based off mode entry
           if (Strmode.equals("[1]")){
@@ -304,11 +320,11 @@ public static void main(String[] args) throws IOException {
 
       if (key.getKeyType() ==  KeyType.Tab){
 
-        if (revert){
+      /*  if (revert){
 
           revert = false;
           input = "";
-        }
+        } */
 
         if (SecondEnter){
           for (int i = 0; i < success.length(); i++){
@@ -397,12 +413,12 @@ public static void main(String[] args) throws IOException {
 
     if (newKey != null){
 
-        if (newKey.getKeyType() == KeyType.ArrowLeft) {
+        if (newKey.getKeyType() == KeyType.ArrowLeft) { //goes back to mode 0
           screen.clear();
           display = 0;
           display%=6;//6 displays -- last display loops around to first
-          firstEnterOver = false;
-          SecondEnter = false;
+          firstEnterOver = false; //sets to og
+          SecondEnter = false; //sets to og
           screen.refresh();
           tEnd = System.currentTimeMillis();
           millis = tEnd - tStart;
@@ -537,6 +553,8 @@ public static void main(String[] args) throws IOException {
           }
         }
 
+        // follows similar logic as display 0 and 1
+
         if ((key.getKeyType() == KeyType.Character)) {
           if (!gameEnter){
             answer += key.getCharacter(); // adds charater to string as long as enter isn't pressed
@@ -559,7 +577,9 @@ public static void main(String[] args) throws IOException {
 
         screen.refresh();
 
-       /*  if ((key.getKeyType() == KeyType.Enter)){
+       /*  commented out so that functions in matchingGame.java can be added to make this working
+
+       if ((key.getKeyType() == KeyType.Enter)){
 
           for (int i = 0; i < answer.length(); i++){
             Inputclearer +=  " ";
