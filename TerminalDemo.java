@@ -646,9 +646,25 @@ public static void main(String[] args) throws IOException {
             }
         }
 
-        }
+
+
+        if (newKey.getKeyType() ==  KeyType.Tab){
+
+              String cheat = game.getAnswer();
+              putString (1,11,screen,"The correct answer is: " + cheat);
+              for (int i = 0; i < answer.length(); i++){
+                Inputclearer +=  " ";
+              } // gets rid of putString that displays Strmode
+              putString(1,10,screen, Inputclearer); // clears input (doesn't matter if it was valid or not)
+              Inputclearer = "";
+              for (int i = 0; i < "Your guess is: ".length(); i++){
+                Inputclearer +=  " ";
+              }
+            }
+            putString(1,9,screen, Inputclearer);
 
       }
+    }
 
 
       //for testing
