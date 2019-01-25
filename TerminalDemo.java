@@ -505,6 +505,8 @@ public static void main(String[] args) throws IOException {
         screen.clear();
         display = 0;
         display%=6;//6 displays -- last display loops around to first
+        firstEnterOver = false;
+        SecondEnter = false;
         Strmode = ""; //Resets the mode
         input = "";
         screen.refresh();
