@@ -534,6 +534,7 @@ public static void main(String[] args) throws IOException {
   while (display == 6){
     String cheat = game.getAnswer();
     String helper = "The correct answer is: " + cheat;
+    String scoreDisplay = "SCORE: " + score;
     putString(1,3,screen,"The mode you have entered is:" + Strmode);
     putString(1,5,screen,"WELCOME TO THE MATCHING GAME!");
     putString(1,6,screen,"Type your guess and press ENTER. Press TAB if you decide to give up. Press the LEFT ARROW to go back to the main screen.");
@@ -554,7 +555,7 @@ public static void main(String[] args) throws IOException {
       putString(1,10,screen,"Your guess is:"); //10
       putString(1,11,screen,answer); //11
     }
-    putString(1,8,screen,"SCORE: " + score); // tells user input was valid
+    putString(1,8,screen,scoreDisplay); // tells user input was valid
 
     boolean cheater = false;
 
@@ -642,7 +643,13 @@ public static void main(String[] args) throws IOException {
             Inputclearer +=  " ";
           }
           putString(1,10,screen, Inputclearer); //10
+          Inputclearer = "";
+          for (int i = 0; i < scoreDisplay.length(); i++){
+            Inputclearer +=  " ";
+          }
+          putString(1,8,screen, Inputclearer);
           screen.refresh();
+
 
 
           if (game.checkAnswer(answer)){ //if answer is correctl
@@ -665,11 +672,6 @@ public static void main(String[] args) throws IOException {
           }
 
         }
-
-
-
-
-
 
         if (newKey.getKeyType() ==  KeyType.Tab){
               cheater = true;
