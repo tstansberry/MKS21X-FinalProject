@@ -532,6 +532,8 @@ public static void main(String[] args) throws IOException {
   // code for display 6
   //NEED GAME CODE TO MAKE THIS WORKING
   while (display == 6){
+    String cheat = game.getAnswer();
+    String helper = "The correct answer is: " + cheat;
     putString(1,3,screen,"The mode you have entered is:" + Strmode);
     putString(1,5,screen,"WELCOME TO THE MATCHING GAME!");
     putString(1,6,screen,"Type your guess and press ENTER. Press TAB if you decide to give up. Press the LEFT ARROW to go back to the main screen.");
@@ -553,6 +555,8 @@ public static void main(String[] args) throws IOException {
       putString(1,11,screen,answer); //11
     }
     putString(1,8,screen,"SCORE: " + score); // tells user input was valid
+
+    boolean cheater = false;
 
     KeyStroke newKey = screen.pollInput();
 
@@ -604,7 +608,13 @@ public static void main(String[] args) throws IOException {
             for (int i = 0; i < output.length(); i++){
               Inputclearer +=  " ";
             }
-            putString(1,12,screen,Inputclearer); //12
+            putString(1,12,screen,Inputclearer);
+            Inputclearer ="";
+            for (int i = 0; i < helper.length(); i++){
+              Inputclearer +=  " ";
+            }
+            putString(1,13,screen,Inputclearer);
+
           }
         }
 
@@ -637,12 +647,18 @@ public static void main(String[] args) throws IOException {
 
           if (game.checkAnswer(answer)){ //if answer is correctl
             putString(1,11,screen,"Your input " + answer + " is correct. Press SPACE for next word."); //11
+            if (!cheater){
             score += 100;
+            screen.refresh();
+          }
+            else{
+            cheater = false;
+            }
           }
 
           else{
             putString(1,12,screen,output);
-            score -= 50;
+            score = score - 50;
             answer = "";
             gameEnter = false;
             screen.refresh();
@@ -656,9 +672,8 @@ public static void main(String[] args) throws IOException {
 
 
         if (newKey.getKeyType() ==  KeyType.Tab){
-
-              String cheat = game.getAnswer();
-              putString (1,13,screen,"The correct answer is: " + cheat); //13
+              cheater = true;
+              putString (1,13,screen,helper); //13
               for (int i = 0; i < answer.length(); i++){
                 Inputclearer +=  " ";
               } // gets rid of putString that displays Strmode
