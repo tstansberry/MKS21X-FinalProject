@@ -357,7 +357,7 @@ if (display == 0){
   // code for only display 0 (home screen)
 
   putString(1,2,screen,"WELCOME TO YOUR TERMINAL DICTIONARY                   BROUGHT TO YOU BY TIMOTHY & VISHWAA");
-  putString(1,3,screen,"There are 4 different modes that you can pick from. Press ESC at any time to exit program. ")
+  putString(1,3,screen,"There are 4 different modes that you can pick from. Press ESC at any time to exit program. ");
 
   //putString(1,7,screen,"Please start typing a word. Press ENTER after you are done. You can DELETE to fix any mistakes you make.");
 
