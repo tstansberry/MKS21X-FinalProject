@@ -6,25 +6,25 @@ Group Name: Soberry
 
 Instructions to use our project:
 
-1.
-a. MAC/Linux: javac -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo.java
-b. Windows: javac -cp "lanterna.jar;jsoup-1.11.3.jar;." TerminalDemo.java
-2. 
-a. MAC/Linux: java -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo
-b. Windows: java -cp "lanterna.jar;jsoup-1.11.3.jar;." TerminalDemo
-3. Type in what mode. Format [number]; Example: [1]
-4. Press ENTER and confirm with SPACE
+1.<br />
+a. MAC/Linux: javac -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo.java<br />
+b. Windows: javac -cp "lanterna.jar;jsoup-1.11.3.jar;." TerminalDemo.java<br />
+2.<br />
+a. MAC/Linux: java -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo<br />
+b. Windows: java -cp "lanterna.jar;jsoup-1.11.3.jar;." TerminalDemo<br />
+3. Type in what mode. Format [number]; Example: [1]<br />
+4. Press ENTER and confirm with SPACE<br />
 
-MODES 1-3
-5. Enter a word
-6. Press ENTER and confirm with SPACE
-7. Press LEFT ARROW to return to main menu
+MODES 1-3<br />
+5. Enter a word<br />
+6. Press ENTER and confirm with SPACE<br />
+7. Press LEFT ARROW to return to main menu<br />
 
-MODE 4
-5. Type your guess and press ENTER
-6. Use TAB if you want to be a cheater (DON'T!)
-7. Play until game is over
-8. Press LEFT ARROW to return to main menu
+MODE 4<br />
+5. Type your guess and press ENTER<br />
+6. Use TAB if you want to be a cheater (DON'T!)<br />
+7. Play until game is over<br />
+8. Press LEFT ARROW to return to main menu<br />
 
 <br />
 
@@ -41,7 +41,7 @@ Timothy- Finally able to isolate the specific definition element that we needed.
 Vishwaa- Familiarized myself with JSOUP and the current code. Helped Timothy with the isolation of the tags.
 # January 8th
 Timothy- Switched up the functionality of the parser. Instead of taking the easy route (definition provided at the top), it now goes down deep into the code and finds the location with all possible definitions. Currently having an error with the Element method "getAttribute()". <br />
-Vishwaa- Helped Timothy find the associated tags so he could modify the Elemnent part of the code accoringly. We decided to use <li> as the tag had an associated "value" ID, which we coould locate. 
+Vishwaa- Helped Timothy find the associated tags so he could modify the Elemnent part of the code accoringly. We decided to use the li tag as the tag had an associated "value" ID, which we coould locate. 
 # January 9th
 Timothy- Played around with various ways to access the specific definitions we needed... finally settled on the hard-coded way since the functions from the Elements interface weren't working. Made it possible to input the specific definition you want (0, 1, 2, etc.). <br />
 Vishwaa- Changed the output to only return the text within the HTML tags. Started working on terminal interface.
