@@ -8,11 +8,19 @@ Instructions to use our project:
 
 1. javac -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo.java
 2. java -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo
-3. Type in a word 
-4. Press ENTER
-5. Type in a mode
-6. Press ENTER
-7. Dictionary does it's magic ;)
+3. Type in what mode. Format [number]; Example: [1]
+4. Press ENTER and confirm with SPACE
+
+MODES 1-3
+5. Enter a word
+6. Press ENTER and confirm with SPACE
+7. Press LEFT ARROW to return to main menu
+
+MODE 4
+5. Type your guess and press ENTER
+6. Use TAB if you want to be a cheater (DON'T!)
+7. Play until game is over
+8. Press LEFT ARROW to return to main menu
 
 <br />
 
@@ -69,5 +77,8 @@ Timothy- Spent time trying to figure out what was wrong, discovered that diction
 Vishwaa- Finished display 1 and modified input features such as Backspace. Successfully connected word input and mode input on display 0 and 1 into creating an output screen based off inputs. Helped Timothy find tags and IDs and read documentation to help implement the changes to fix broken code in Scraper because of which our defintion part didnt work.  </br>
 NOTE: DICTIONARY.COM CHANGED THEIR HTML AND WE HAD TO FIND RELEVANT TAGS AND IDS TO FIX SCRAPER.JAVA. </br>
 
-# January 21st
-Timothy- Finally was able to figure out how to get the definitions we need with the new html format, finalized game code.
+# January 21st - January 25th
+Timothy- Finally was able to figure out how to get the definitions we need with the new html format, finalized game code. </br>
+
+#January 21st
+Vishwaa- From January 21st to the 25th, I spent most of the time working on allowing the user to interact efficiently with the program. I was able to implement features that allowed them to go back to the main menu, confirm their input, change their input in order to give them flexibility. I also worked on making sure the defintions printed properly and the layout was neat. The last thing was connecting the game code to the terminal display so the backend could check user input and properly display results and update defintion and scores accoridingly.
