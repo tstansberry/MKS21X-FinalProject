@@ -84,5 +84,4 @@ NOTE: DICTIONARY.COM CHANGED THEIR HTML AND WE HAD TO FIND RELEVANT TAGS AND IDS
 # January 21st - January 25th
 Timothy- Finally was able to figure out how to get the definitions we need with the new html format, finalized game code. </br>
 
-#January 21st
 Vishwaa- From January 21st to the 25th, I spent most of the time working on allowing the user to interact efficiently with the program. I was able to implement features that allowed them to go back to the main menu, confirm their input, change their input in order to give them flexibility. I also worked on making sure the defintions printed properly and the layout was neat. The last thing was connecting the game code to the terminal display so the backend could check user input and properly display results and update defintion and scores accoridingly.
