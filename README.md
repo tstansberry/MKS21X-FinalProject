@@ -6,8 +6,12 @@ Group Name: Soberry
 
 Instructions to use our project:
 
-1. javac -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo.java
-2. java -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo
+1.
+a. MAC/Linux: javac -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo.java
+b. Windows: javac -cp "lanterna.jar;jsoup-1.11.3.jar;." TerminalDemo.java
+2. 
+a. MAC/Linux: java -cp lanterna.jar:jsoup-1.11.3.jar:. TerminalDemo
+b. Windows: java -cp "lanterna.jar;jsoup-1.11.3.jar;." TerminalDemo
 3. Type in what mode. Format [number]; Example: [1]
 4. Press ENTER and confirm with SPACE
 
